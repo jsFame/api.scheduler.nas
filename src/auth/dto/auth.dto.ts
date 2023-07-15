@@ -1,31 +1,11 @@
-import { IsAlphanumeric, IsNotEmpty, MaxLength, MinLength } from 'class-validator'
-// import { PublicKey } from '@solana/web3.js'
-/*
-function IsSolanaAddress(address:string){
-  try {
-    let pubkey = new PublicKey(address)
-    let  isSolana =  PublicKey.isOnCurve(pubkey.toBuffer())
-    return isSolana
-  } catch (error) {
-    return false
-  }
-export class AuthDto {
-  // @IsEthereumAddress()
-  @IsSolanaAddress()
-  @IsNotEmpty()
-  wallet: string
-}
-*/
-
-// function IsSolanaAddress(): PropertyDecorator {
-//   return
-// }
+import { IsEmail, IsNotEmpty, IsStrongPassword } from 'class-validator'
 
 export class AuthDto {
-  // @IsSolanaAddress()
-  @IsAlphanumeric()
+  @IsEmail()
   @IsNotEmpty()
-  @MinLength(32)
-  @MaxLength(44)
-  wallet: string
+  email: string
+
+  @IsStrongPassword()
+  @IsNotEmpty()
+  password: string
 }
