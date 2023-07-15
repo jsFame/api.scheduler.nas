@@ -13,7 +13,7 @@ export class AppService {
   }
 
   async getHealth() {
-    let dbStatus = new ServiceStatus()
+    const dbStatus = new ServiceStatus()
 
     await this.prisma
       .$connect()
