@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
   }
 
   validate(payload: { sub: number; email: string }) {
-    const user = this.prisma.wallet.findUnique({
+    const user = this.prisma.user.findUnique({
       where: {
         id: payload.sub,
       },
@@ -33,6 +33,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     const tokenField = 'token'
     console.debug(req.cookies)
     if (req.cookies && tokenField in req.cookies && req.cookies[tokenField].length > 0) {
+      console.log('extracted cookie')
       return req.cookies.token
     }
     return null
