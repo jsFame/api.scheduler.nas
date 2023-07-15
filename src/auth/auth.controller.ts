@@ -8,6 +8,11 @@ import { ConfigService } from '@nestjs/config'
 export class AuthController {
   constructor(private authService: AuthService, private config: ConfigService) {}
 
+  @Post('signup')
+  signup(@Body() dto: AuthDto) {
+    return this.authService.signup(dto)
+  }
+
   @HttpCode(HttpStatus.OK)
   @Post('signin')
   async signin(@Body() dto: AuthDto, @Res() res: Response) {
