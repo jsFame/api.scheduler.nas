@@ -24,6 +24,7 @@ describe('App e2e', () => {
     url = `http://localhost:${port}`
     await app.listen(port)
     pactum.request.setBaseUrl(url)
+    prisma.cleanDb()
   })
 
   afterAll(async () => {
