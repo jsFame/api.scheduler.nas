@@ -45,17 +45,17 @@ jobs:
           node-version: 19
           check-latest: true
 
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Build
-        run: pnpm build
-
       - name: Write environment
         run: |
           echo $envfile > .env
           sed -i 's/ /\n/g' .env
           source .env
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build
+        run: npm run build
 
       - name: Prisma Migration
         continue-on-error: true
@@ -67,10 +67,10 @@ jobs:
       - name: Reset the DB
         if: ${{ failure() }}
         run: |
-          prisma migrate dev
+          npx prisma migrate dev
 
       - name: Run tests
-        run: pnpm run test
+        run: npm run test
 
       - name: E2E
-        run: pnpm test:e2e
+        run: npm run test:e2e
