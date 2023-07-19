@@ -71,4 +71,6 @@ model Calendar {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@unique([eventId, guestId, date])
 }
