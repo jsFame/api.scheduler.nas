@@ -4,13 +4,7 @@ import { AuthDto } from '../src/auth/dto'
 
 const prisma = new PrismaClient()
 
-async function main() {
-  await prisma.user.deleteMany()
-
-  const dto: AuthDto = {
-    email: 'hiro_tests@gmail.com',
-    password: 'testing@rQfAPjfVsreWGz2',
-  }
+async function create_user(dto: AuthDto) {
   const hash = await argon.hash(dto.password)
   const user = await prisma.user.create({
     data: {
@@ -18,8 +12,34 @@ async function main() {
       hash: hash,
     },
   })
+  console.log({ created: user })
+  return user
+}
 
-  console.log({ user })
+async function main() {
+  await prisma.user.deleteMany()
+
+  const user1 = await create_user({
+    email: 'hiro_tests@gmail.com',
+    password: 'nas@Testing#',
+  })
+  const user2 = await create_user({
+    email: 'hiro@gmail.com',
+    password: 'hiro@Testing#',
+  })
+
+  const event = await prisma.event.create({
+    data: {
+      title: '20 Minute catchup',
+      hostId: user1.id,
+      duration: 20,
+    },
+  })
+  console.log({ event })
+
+  const calendarInvite = await prisma.calendar.createMany({
+    data: [{ eventId: event.id, date: new Date().getDate(), guestId: user2.id }],
+  })
 }
 
 main()

@@ -45,32 +45,36 @@ model Event {
 }
 
 model TimeSlot {
-  id            String   @id @default(uuid())
-  eventId       String
-  startDateTime DateTime @db.Time() // FIXME:@db.Timetz()
-  endDateTime   DateTime @db.Time()
-  available     Boolean
-  event         Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  id        String   @id @default(uuid())
+  eventId   String
+  startTime DateTime @db.Time() // FIXME:@db.Timetz()
+  endTime   DateTime @db.Time()
+  available Boolean
+  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  Calendar  Calendar[]
 
-  @@unique([eventId, startDateTime, endDateTime])
+  @@unique([eventId, startTime, endTime])
 }
 
 model Calendar {
   id Int @id @default(sequence(minValue: 1)) @db.Int4
 
-  eventId String
-  guestId Int
+  timeSlotId String
+  guestId    Int
 
-  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
-  guest User  @relation(fields: [guestId], references: [id], onDelete: Cascade)
+  timeslot TimeSlot @relation(fields: [timeSlotId], references: [id], onDelete: Cascade)
+
+  guest User @relation(fields: [guestId], references: [id], onDelete: Cascade)
 
   date DateTime @db.Date
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Event     Event?   @relation(fields: [eventId], references: [id])
+  eventId   String?
 
-  @@unique([eventId, guestId, date])
+  @@unique([timeSlotId, guestId, date])
 }
