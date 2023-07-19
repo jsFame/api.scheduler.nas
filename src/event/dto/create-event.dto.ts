@@ -1,6 +1,15 @@
+import { IsNumber, IsOptional, IsString } from 'class-validator'
+
 export class CreateEventDto {
+  @IsNumber()
+  @IsOptional()
+  hostId?: number
+  @IsString()
   title: string
+  @IsString()
+  @IsOptional()
   description?: string
-  hostId: number
+
+  @IsNumber()
   duration: number
 }

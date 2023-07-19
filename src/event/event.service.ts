@@ -1,11 +1,15 @@
 import { Injectable } from '@nestjs/common'
-import { CreateEventDto } from './dto/create-event.dto'
 import { UpdateEventDto } from './dto/update-event.dto'
+import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
 export class EventService {
-  create(createEventDto: CreateEventDto) {
-    return 'This action adds a new event'
+  constructor(private readonly prisma: PrismaService) {}
+  create(createEventDto: any) {
+    // FIXME: type any
+    return this.prisma.event.create({
+      data: createEventDto,
+    })
   }
 
   findAll() {
@@ -16,7 +20,7 @@ export class EventService {
     return `This action returns a #${id} event`
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
+  update(id: string, updateEventDto: UpdateEventDto) {
     return `This action updates a #${id} event`
   }
 
