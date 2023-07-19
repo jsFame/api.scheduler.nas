@@ -2,13 +2,14 @@
 
 # Inspiration
 
-During my college years, I found that teachers, students & myself would often have to stand outside the
-dean's office for long hours. I found this very disturbing as a Computer Science Engineering Student. I saw the potential of
-a software scheduler that would make everyone's life easy.
+During my college years, I found that teachers, students & myself would often have to
+stand outside the dean's office for long hours. I found this very disturbing as a Computer
+Science Engineering Student. I saw the potential of a software scheduler that would make
+everyone's life easy.
 
 ## Description
 
-Scheduler RESTFul API Server built using  , TypeScript, Prisma, Graphql and PostgreSQL.
+Scheduler RESTFul API Server built using , TypeScript, Prisma, Graphql and PostgreSQL.
 
 Built with ❤️on top of
 
@@ -48,11 +49,10 @@ Task management allows users to register, create tasks and manage them, major fe
 
 ### Technical documentation using [Compodoc](https://web3mustketeers.github.io/api.taskmon.ai/)
 
-As NestJS is heavily inspired by Angular, we can generate the documentation about project structure modules, controllers, services etc. I
-have generated the docs.
+As NestJS is heavily inspired by Angular, we can generate the documentation about project
+structure modules, controllers, services etc. I have generated the docs.
 
 Find 'em here - https://web3mustketeers.github.io/api.taskmon.ai/
-
 
 ## Installation
 
@@ -67,7 +67,6 @@ pnpm install
 
 - Copy `.env.example` with `.env`
 - Fill in the env vars in `.env`
-
 
 ```bash
 # development

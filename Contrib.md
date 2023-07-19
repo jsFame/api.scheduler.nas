@@ -16,7 +16,6 @@ which facilitates db migrations, Typescript model generation out of the box.
 3. To deploy:  
    `pnpm prisma:local:deploy`
 
-
 ### Pnpm vs npm
 
 - npm: Executes pre/post scripts
