@@ -422,7 +422,7 @@
             
                             <tr>
                                 <td class="col-md-4">
-            <code>findOne(id: number)</code>
+            <code>findOne(id: string)</code>
                                 </td>
                             </tr>
             
@@ -511,8 +511,12 @@ export class EventService {
     })
   }
 
-  findOne(id: number) {
-    return &#x60;This action returns a #${id} event&#x60;
+  findOne(id: string) {
+    return this.prisma.event.findUnique({
+      where: {
+        id: id,
+      },
+    })
   }
 
   update(id: string, updateEventDto: UpdateEventDto) {
