@@ -3,6 +3,7 @@ import {
   Controller,
   Delete,
   Get,
+  NotFoundException,
   Param,
   Patch,
   Post,
@@ -35,8 +36,12 @@ export class EventController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.eventService.findOne(+id)
+  async findOne(@Param('id') id: string) {
+    const e = await this.eventService.findOne(id)
+    if (!e) {
+      throw new NotFoundException('event not found')
+    }
+    return e
   }
 
   @Patch(':id')

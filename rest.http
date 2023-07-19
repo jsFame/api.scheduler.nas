@@ -1,3 +1,7 @@
+
+GET {{u}}/events/ac726346-f28b-4d7e-a6b3-a1b4f594485d
+Accept: application/json
+
 ###
 
 GET {{u}}/events
