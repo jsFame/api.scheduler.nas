@@ -5,20 +5,68 @@ generator client {
 datasource db {
   provider = "cockroachdb"
   url      = env("DATABASE_URL")
-  // extensions = [uuidOssp(map: "uuid-ossp")]
 }
 
 model User {
-  id        Int      @id @default(sequence(minValue: 1)) @db.Int2
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id Int @id @default(sequence(minValue: 1)) @db.Int4
 
   email String @unique
   hash  String
 
   firstName String?
   lastName  String?
+  Event     Event[]
+  Calendar  Calendar[]
 
-  // @@id(fields: [])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
   @@map("users")
+}
+
+model Event {
+  // hosting an event
+  id          String  @id @default(uuid())
+  title       String
+  description String?
+  hostId      Int
+  duration    Int
+  // location    String?
+
+  host User @relation(fields: [hostId], references: [id], onDelete: Cascade)
+
+  timeslots TimeSlot[]
+  Calendar  Calendar[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model TimeSlot {
+  id            String   @id @default(uuid())
+  eventId       String
+  startDateTime DateTime @db.Time() // FIXME:@db.Timetz()
+  endDateTime   DateTime @db.Time()
+  available     Boolean
+  event         Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([eventId, startDateTime, endDateTime])
+}
+
+model Calendar {
+  id Int @id @default(sequence(minValue: 1)) @db.Int4
+
+  eventId String
+  guestId Int
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+  guest User  @relation(fields: [guestId], references: [id], onDelete: Cascade)
+
+  date DateTime @db.Date
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
