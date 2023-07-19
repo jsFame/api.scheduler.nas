@@ -1,18 +1,20 @@
+###
+
+GET {{u}}/events
+Accept: application/json
+
+###
+
 POST {{u}}/events
 Content-Type: application/json
 
 {
  "title": "Catchup: 20m",
-  "duration": "20",
+  "duration": 20,
   "description":"Daily catchup call"
 }
 
 ###
-GET {{u}}/event
-Accept: application/json
-
-
-
 
 OPTIONS {{u}}
 

@@ -14,7 +14,6 @@ import { UpdateEventDto } from './dto/update-event.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import { JwtGuard } from '../auth/guard'
 import { GetUser } from '../auth/decorator'
-import { User } from '@prisma/client'
 
 @UseGuards(JwtGuard)
 @Controller('events')
@@ -25,14 +24,14 @@ export class EventController {
   ) {}
 
   @Post()
-  create(@GetUser() user: User, @Body() createEventDto: CreateEventDto) {
-    createEventDto.hostId = user.id
+  create(@GetUser('userId') userId: number, @Body() createEventDto: CreateEventDto) {
+    createEventDto.hostId = userId
     return this.eventService.create(createEventDto)
   }
 
   @Get()
-  findAll() {
-    return this.eventService.findAll()
+  findAll(@GetUser('userId') userId: number) {
+    return this.eventService.findAll(userId)
   }
 
   @Get(':id')

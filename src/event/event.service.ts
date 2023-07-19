@@ -12,8 +12,13 @@ export class EventService {
     })
   }
 
-  findAll() {
-    return `This action returns all event`
+  findAll(userId: number) {
+    console.debug(userId)
+    return this.prisma.event.findMany({
+      where: {
+        hostId: userId,
+      },
+    })
   }
 
   findOne(id: number) {
