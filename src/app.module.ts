@@ -7,6 +7,9 @@ import { PrismaModule } from './prisma/prisma.module'
 import * as Joi from 'joi'
 import { UserModule } from './user/user.module'
 import { CacheModule } from '@nestjs/cache-manager'
+import { EventModule } from './event/event.module'
+import { TimeslotModule } from './timeslot/timeslot.module'
+import { CalendarModule } from './calendar/calendar.module'
 
 let mode = process.env.MODE
 let envFile = '.env'
@@ -44,6 +47,9 @@ switch (mode) {
     PrismaModule,
     AuthModule,
     UserModule,
+    EventModule,
+    TimeslotModule,
+    CalendarModule,
   ],
   controllers: [AppController],
   providers: [AppService],
