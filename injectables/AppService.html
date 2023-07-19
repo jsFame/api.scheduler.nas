@@ -417,7 +417,11 @@
 import { PrismaService } from &#x27;./prisma/prisma.service&#x27;
 
 class ServiceStatus {
-  constructor(public ok: boolean &#x3D; true, public status: string &#x3D; &#x27;OK&#x27;, public debug: any &#x3D; undefined) {}
+  constructor(
+    public ok: boolean &#x3D; true,
+    public status: string &#x3D; &#x27;OK&#x27;,
+    public debug: any &#x3D; undefined,
+  ) {}
 }
 
 @Injectable()

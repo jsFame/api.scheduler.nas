@@ -451,7 +451,10 @@ export class JwtStrategy extends PassportStrategy(Strategy, &#x27;jwt&#x27;) {
   constructor(private config: ConfigService, private prisma: PrismaService) {
     const mode &#x3D; config.get(&#x27;MODE&#x27;) || &#x27;dev&#x27;
     super({
-      jwtFromRequest: ExtractJwt.fromExtractors([JwtStrategy.extractJWTFromCookie, ExtractJwt.fromAuthHeaderAsBearerToken()]),
+      jwtFromRequest: ExtractJwt.fromExtractors([
+        JwtStrategy.extractJWTFromCookie,
+        ExtractJwt.fromAuthHeaderAsBearerToken(),
+      ]),
       ignoreExpiration: mode &#x3D;&#x3D; &#x27;dev&#x27; || mode &#x3D;&#x3D; &#x27;test&#x27;,
       secretOrKey: config.get(&#x27;JWT_SECRET&#x27;),
     })

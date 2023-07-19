@@ -452,14 +452,21 @@
         <pre><code class="hljs javascript">import { ForbiddenException, Injectable } from &#x27;@nestjs/common&#x27;
 import { PrismaService } from &#x27;../prisma/prisma.service&#x27;
 import { AuthDto } from &#x27;./dto&#x27;
-import { PrismaClientKnownRequestError, PrismaClientUnknownRequestError } from &#x27;@prisma/client/runtime&#x27;
+import {
+  PrismaClientKnownRequestError,
+  PrismaClientUnknownRequestError,
+} from &#x27;@prisma/client/runtime&#x27;
 import * as argon from &#x27;argon2&#x27;
 import { JwtService } from &#x27;@nestjs/jwt&#x27;
 import { ConfigService } from &#x27;@nestjs/config&#x27;
 
 @Injectable()
 export class AuthService {
-  constructor(private prisma: PrismaService, private jwt: JwtService, private config: ConfigService) {}
+  constructor(
+    private prisma: PrismaService,
+    private jwt: JwtService,
+    private config: ConfigService,
+  ) {}
 
   async signup(dto: AuthDto) {
     const hash &#x3D; await argon.hash(dto.password)
@@ -484,7 +491,10 @@ export class AuthService {
         code: error.code,
         error,
       })
-      if (error instanceof PrismaClientKnownRequestError || PrismaClientUnknownRequestError) {
+      if (
+        error instanceof PrismaClientKnownRequestError ||
+        PrismaClientUnknownRequestError
+      ) {
         if (error.code &#x3D;&#x3D; &#x27;P2002&#x27;) {
           throw new ForbiddenException(&#x27;credentials taken&#x27;)
         }
