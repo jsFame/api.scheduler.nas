@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common'
-import { UpdateEventDto } from './dto/update-event.dto'
 import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
@@ -13,7 +12,6 @@ export class EventService {
   }
 
   findAll(userId: number) {
-    console.debug(userId)
     return this.prisma.event.findMany({
       where: {
         hostId: userId,
@@ -29,11 +27,13 @@ export class EventService {
     })
   }
 
-  update(id: string, updateEventDto: UpdateEventDto) {
-    return `This action updates a #${id} event`
+  /*update(id: string, updateEventDto: UpdateEventDto) { //Later
+    return this.prisma.event.update({
+      id: id,
+    })
   }
 
   remove(id: number) {
     return `This action removes a #${id} event`
-  }
+  }*/
 }

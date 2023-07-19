@@ -1,17 +1,14 @@
 import {
   Body,
   Controller,
-  Delete,
   Get,
   NotFoundException,
   Param,
-  Patch,
   Post,
   UseGuards,
 } from '@nestjs/common'
 import { EventService } from './event.service'
 import { CreateEventDto } from './dto/create-event.dto'
-import { UpdateEventDto } from './dto/update-event.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import { JwtGuard } from '../auth/guard'
 import { GetUser } from '../auth/decorator'
@@ -44,7 +41,7 @@ export class EventController {
     return e
   }
 
-  @Patch(':id')
+  /* @Patch(':id')
   update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
     return this.eventService.update(id, updateEventDto)
   }
@@ -52,5 +49,5 @@ export class EventController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.eventService.remove(+id)
-  }
+  }*/
 }
