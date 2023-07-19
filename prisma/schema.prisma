@@ -30,7 +30,7 @@ model Event {
   title       String
   description String?
   hostId      Int
-  duration    Int
+  duration    Int // in minutes
   // location    String?
 
   host User @relation(fields: [hostId], references: [id], onDelete: Cascade)
