@@ -16,6 +16,11 @@ async function create_user(dto: AuthDto) {
   return user
 }
 
+function addDays(date: Date, days: number): Date {
+  date.setDate(date.getDate() + days)
+  return date
+}
+
 async function main() {
   await prisma.user.deleteMany()
 
@@ -37,9 +42,32 @@ async function main() {
   })
   console.log({ event })
 
-  const calendarInvite = await prisma.calendar.createMany({
-    data: [{ eventId: event.id, date: new Date().getDate(), guestId: user2.id }],
+  const timeSlot = await prisma.timeSlot.create({
+    data: {
+      eventId: event.id,
+      available: true,
+      startTime: '12:00',
+      endTime: '12:20', //FIXME automatically add
+    },
   })
+
+  const today = new Date()
+  const calendarInvite = await prisma.calendar.createMany({
+    data: [
+      {
+        eventId: event.id,
+        date: new Date(today.getTime() + 1000 * 60 * 60 * 24),
+        guestId: user2.id,
+      },
+      {
+        eventId: event.id,
+        date: new Date(today.getTime() + 1000 * 60 * 60 * 24),
+        guestId: user2.id,
+      },
+    ],
+  })
+
+  console.log({ calendarInvite })
 }
 
 main()

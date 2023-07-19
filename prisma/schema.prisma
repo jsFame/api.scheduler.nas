@@ -36,7 +36,6 @@ model Event {
   host User @relation(fields: [hostId], references: [id], onDelete: Cascade)
 
   timeslots TimeSlot[]
-  Calendar  Calendar[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -73,8 +72,6 @@ model Calendar {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Event     Event?   @relation(fields: [eventId], references: [id])
-  eventId   String?
 
   @@unique([timeSlotId, guestId, date])
 }
