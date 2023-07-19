@@ -53,7 +53,7 @@ async function main() {
       eventId: event.id,
       available: true,
       startTime: startTime.toDate(),
-      endTime: endTime.toDate(), //FIXME automatically add
+      endTime: endTime.toDate(),
     },
   })
 
