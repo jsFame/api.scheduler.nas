@@ -1,11 +1,13 @@
 import { Injectable } from '@nestjs/common'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
 import { UpdateTimeslotDto } from './dto/update-timeslot.dto'
+import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
 export class TimeslotService {
+  constructor(private readonly prisma: PrismaService) {}
   create(createTimeslotDto: CreateTimeslotDto) {
-    return 'This action adds a new timeslot'
+    return this.prisma.timeslot({})
   }
 
   findAll() {

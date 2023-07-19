@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common'
 import { CreateCalendarDto } from './dto/create-calendar.dto'
 import { UpdateCalendarDto } from './dto/update-calendar.dto'
+import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
 export class CalendarService {
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createCalendarDto: CreateCalendarDto) {
     return 'This action adds a new calendar'
   }
