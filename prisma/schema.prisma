@@ -41,6 +41,7 @@ model Event {
   updatedAt DateTime @updatedAt
 
   @@unique([hostId, title, duration])
+  @@map("events")
 }
 
 model TimeSlot {
@@ -56,6 +57,7 @@ model TimeSlot {
   Calendar  Calendar[]
 
   @@unique([eventId, startTime, endTime])
+  @@map("timeslots")
 }
 
 model Calendar {
@@ -74,4 +76,5 @@ model Calendar {
   updatedAt DateTime @updatedAt
 
   @@unique([timeSlotId, guestId, date])
+  @@map("calendars")
 }
