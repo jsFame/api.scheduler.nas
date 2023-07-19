@@ -398,7 +398,7 @@
             
                             <tr>
                                 <td class="col-md-4">
-            <code>findAll()</code>
+            <code>findAll(userId: number)</code>
                                 </td>
                             </tr>
             
@@ -502,8 +502,13 @@ export class EventService {
     })
   }
 
-  findAll() {
-    return &#x60;This action returns all event&#x60;
+  findAll(userId: number) {
+    console.debug(userId)
+    return this.prisma.event.findMany({
+      where: {
+        hostId: userId,
+      },
+    })
   }
 
   findOne(id: number) {
