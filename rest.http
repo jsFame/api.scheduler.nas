@@ -1,3 +1,8 @@
+GET {{u}}/event
+Accept: application/json
+
+
+
 OPTIONS {{u}}
 
 ### Enable Cors
@@ -19,13 +24,13 @@ Accept: application/json
 POST {{u}}/auth/signin
 Content-Type: application/x-www-form-urlencoded
 
-email=hiro@gmail.com&password=Hiro*2412412###@##P
+email=laciferin@gmail.com&password=Hiro*2412412###@##P
 
 ###
 POST {{u}}/auth/signup
 Content-Type: application/x-www-form-urlencoded
 
-email=hiro@gmail.com&password=Hiro*2412412###@##P
+email=laciferin@gmail.com&password=Hiro*2412412###@##P
 
 ###
 
