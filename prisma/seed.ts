@@ -55,13 +55,13 @@ async function main() {
   const calendarInvite = await prisma.calendar.createMany({
     data: [
       {
-        eventId: event.id,
+        timeSlotId: timeSlot.id,
         date: new Date(today.getTime() + 1000 * 60 * 60 * 24),
         guestId: user2.id,
       },
       {
-        eventId: event.id,
-        date: new Date(today.getTime() + 1000 * 60 * 60 * 24),
+        timeSlotId: timeSlot.id,
+        date: new Date(today.getTime() + 1000 * 60 * 60 * 24 * 2),
         guestId: user2.id,
       },
     ],
