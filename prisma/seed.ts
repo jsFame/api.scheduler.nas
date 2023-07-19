@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client'
 import * as argon from 'argon2'
 import { AuthDto } from '../src/auth/dto'
+import moment from 'moment'
 
 const prisma = new PrismaClient()
 
@@ -42,12 +43,15 @@ async function main() {
   })
   console.log({ event })
 
+  const startTime = moment('12:00', 'HH:mm')
+  const endTime = moment('12:20', 'HH:mm')
+
   const timeSlot = await prisma.timeSlot.create({
     data: {
       eventId: event.id,
       available: true,
-      startTime: '12:00',
-      endTime: '12:20', //FIXME automatically add
+      startTime: startTime,
+      endTime: endTime, //FIXME automatically add
     },
   })
 
