@@ -26,11 +26,11 @@ async function main() {
   await prisma.user.deleteMany()
 
   const user1 = await create_user({
-    email: 'hiro_tests@gmail.com',
-    password: 'nas@Testing#',
+    email: 'dean@nas.edu',
+    password: 'dean@Testing#',
   })
   const user2 = await create_user({
-    email: 'hiro@gmail.com',
+    email: 'hiro@student.nas.edu',
     password: 'hiro@Testing#',
   })
 
