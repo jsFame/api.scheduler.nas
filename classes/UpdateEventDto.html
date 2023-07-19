@@ -353,12 +353,90 @@
 
 
 
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> description</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>description:     <code>string</code>
+            </bcode>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> duration</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>duration:     <code>number</code>
+            </bcode>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> hostId</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>hostId:     <code>number</code>
+            </bcode>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> title</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>title:     <code>string</code>
+            </bcode>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+            </section>
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
         <pre><code class="hljs javascript">import { PartialType } from &#x27;@nestjs/mapped-types&#x27;
 import { CreateEventDto } from &#x27;./create-event.dto&#x27;
+import { IsNumber, IsOptional, IsString } from &#x27;class-validator&#x27;
 
-export class UpdateEventDto extends PartialType(CreateEventDto) {}
+export class UpdateEventDto extends PartialType(CreateEventDto) {
+  @IsNumber()
+  @IsOptional()
+  hostId?: number
+  @IsString()
+  @IsOptional()
+  title?: string
+  @IsString()
+  @IsOptional()
+  description?: string
+
+  @IsNumber()
+  @IsOptional()
+  duration?: number
+}
 </code></pre>
     </div>
 </div>

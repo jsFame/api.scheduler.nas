@@ -348,6 +348,19 @@
         </p>
 
 
+            <section>
+                <h3 id="constructor">Constructor</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>constructor(prisma: <a href="../injectables/PrismaService.html" >PrismaService</a>)</code>
+                                </td>
+                            </tr>
+            
+                        </tbody>
+                    </table>
+            </section>
 
             <section>
                 <h3 id="methods">Methods</h3>
@@ -361,7 +374,7 @@
             
                             <tr>
                                 <td class="col-md-4">
-            <code>create(createEventDto: <a href="../classes/Event.html" >CreateEventDto</a>)</code>
+            <code>create(createEventDto: any)</code>
                                 </td>
                             </tr>
             
@@ -433,7 +446,7 @@
             
                             <tr>
                                 <td class="col-md-4">
-            <code>update(id: number, updateEventDto: <a href="../classes/UpdateEventDto.html" >UpdateEventDto</a>)</code>
+            <code>update(id: string, updateEventDto: <a href="../classes/UpdateEventDto.html" >UpdateEventDto</a>)</code>
                                 </td>
                             </tr>
             
@@ -476,13 +489,17 @@
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
         <pre><code class="hljs javascript">import { Injectable } from &#x27;@nestjs/common&#x27;
-import { CreateEventDto } from &#x27;./dto/create-event.dto&#x27;
 import { UpdateEventDto } from &#x27;./dto/update-event.dto&#x27;
+import { PrismaService } from &#x27;../prisma/prisma.service&#x27;
 
 @Injectable()
 export class EventService {
-  create(createEventDto: CreateEventDto) {
-    return &#x27;This action adds a new event&#x27;
+  constructor(private readonly prisma: PrismaService) {}
+  create(createEventDto: any) {
+    // FIXME: type any
+    return this.prisma.event.create({
+      data: createEventDto,
+    })
   }
 
   findAll() {
@@ -493,7 +510,7 @@ export class EventService {
     return &#x60;This action returns a #${id} event&#x60;
   }
 
-  update(id: number, updateEventDto: UpdateEventDto) {
+  update(id: string, updateEventDto: UpdateEventDto) {
     return &#x60;This action updates a #${id} event&#x60;
   }
 
