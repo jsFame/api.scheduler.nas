@@ -80,7 +80,7 @@
                                     <a href="../classes/CreateTimeslotDto.html" >CreateTimeslotDto</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../classes/EditUserDto.html"  class="active" >EditUserDto</a>
+                                    <a href="../classes/EditUserDto.html" >EditUserDto</a>
                                 </li>
                                 <li class="link">
                                     <a href="../classes/Event.html" >Event</a>
@@ -92,7 +92,7 @@
                                     <a href="../classes/ServiceStatus.html" >ServiceStatus</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../classes/Timeslot.html" >Timeslot</a>
+                                    <a href="../classes/Timeslot.html"  class="active" >Timeslot</a>
                                 </li>
                                 <li class="link">
                                     <a href="../classes/UpdateCalendarDto.html" >UpdateCalendarDto</a>
@@ -232,7 +232,7 @@
                                            <a href="../classes/CreateTimeslotDto.html" >CreateTimeslotDto</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../classes/EditUserDto.html"  class="active" >EditUserDto</a>
+                                           <a href="../classes/EditUserDto.html" >EditUserDto</a>
                                        </li>
                                        <li class="link">
                                            <a href="../classes/Event.html" >Event</a>
@@ -244,7 +244,7 @@
                                            <a href="../classes/ServiceStatus.html" >ServiceStatus</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../classes/Timeslot.html" >Timeslot</a>
+                                           <a href="../classes/Timeslot.html"  class="active" >Timeslot</a>
                                        </li>
                                        <li class="link">
                                            <a href="../classes/UpdateCalendarDto.html" >UpdateCalendarDto</a>
@@ -328,7 +328,7 @@
 
 <ol class="breadcrumb">
   <li>Classes</li>
-  <li>EditUserDto</li>
+  <li>Timeslot</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -346,78 +346,16 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/user/dto/edit-user.dto.ts</code>
+            <code>src/timeslot/entities/timeslot.entity.ts</code>
         </p>
 
 
 
 
 
-            <section>
-                <h3 id="inputs">Properties</h3>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <b> email</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <code>email:     <code>string</code>
-            </bcode>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <b> firstName</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <code>firstName:     <code>string</code>
-            </bcode>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <b> lastName</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <code>lastName:     <code>string</code>
-            </bcode>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-            </section>
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
-        <pre><code class="hljs javascript">import { IsEmail, IsOptional, IsString } from &#x27;class-validator&#x27;
-
-export class EditUserDto {
-  @IsEmail()
-  @IsOptional()
-  email?: string
-
-  @IsString()
-  @IsOptional()
-  firstName?: string
-
-  @IsString()
-  @IsOptional()
-  lastName?: string
-}
+        <pre><code class="hljs javascript">export class Timeslot {}
 </code></pre>
     </div>
 </div>

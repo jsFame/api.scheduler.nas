@@ -80,7 +80,7 @@
                                     <a href="../classes/CreateTimeslotDto.html" >CreateTimeslotDto</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../classes/EditUserDto.html"  class="active" >EditUserDto</a>
+                                    <a href="../classes/EditUserDto.html" >EditUserDto</a>
                                 </li>
                                 <li class="link">
                                     <a href="../classes/Event.html" >Event</a>
@@ -137,7 +137,7 @@
                                     <a href="../injectables/PrismaService.html" >PrismaService</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../injectables/TimeslotService.html" >TimeslotService</a>
+                                    <a href="../injectables/TimeslotService.html"  class="active" >TimeslotService</a>
                                 </li>
                                 <li class="link">
                                     <a href="../injectables/UserService.html" >UserService</a>
@@ -232,7 +232,7 @@
                                            <a href="../classes/CreateTimeslotDto.html" >CreateTimeslotDto</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../classes/EditUserDto.html"  class="active" >EditUserDto</a>
+                                           <a href="../classes/EditUserDto.html" >EditUserDto</a>
                                        </li>
                                        <li class="link">
                                            <a href="../classes/Event.html" >Event</a>
@@ -289,7 +289,7 @@
                                            <a href="../injectables/PrismaService.html" >PrismaService</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../injectables/TimeslotService.html" >TimeslotService</a>
+                                           <a href="../injectables/TimeslotService.html"  class="active" >TimeslotService</a>
                                        </li>
                                        <li class="link">
                                            <a href="../injectables/UserService.html" >UserService</a>
@@ -318,17 +318,15 @@
                    
                    </nav>
                </div>
-               <div class="content class">
+               <div class="content injectable">
                    <div class="content-data">
 
 
 
 
-
-
 <ol class="breadcrumb">
-  <li>Classes</li>
-  <li>EditUserDto</li>
+  <li>Injectables</li>
+  <li>TimeslotService</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -346,26 +344,33 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/user/dto/edit-user.dto.ts</code>
+            <code>src/timeslot/timeslot.service.ts</code>
         </p>
 
 
 
-
-
             <section>
-                <h3 id="inputs">Properties</h3>
+                <h3 id="methods">Methods</h3>
                     <table class="table table-sm table-bordered">
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <b> email</b>
+                                    <b> create</b>
                                 </td>
                             </tr>
+            
                             <tr>
                                 <td class="col-md-4">
-                                    <code>email:     <code>string</code>
-            </bcode>
+            <code>create(createTimeslotDto: <a href="../classes/Timeslot.html" >CreateTimeslotDto</a>)</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>void</code>
+            
+                                        </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -374,13 +379,22 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <b> firstName</b>
+                                    <b> findAll</b>
                                 </td>
                             </tr>
+            
                             <tr>
                                 <td class="col-md-4">
-                                    <code>firstName:     <code>string</code>
-            </bcode>
+            <code>findAll()</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>void</code>
+            
+                                        </div>
                                 </td>
                             </tr>
                         </tbody>
@@ -389,38 +403,109 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <b> lastName</b>
+                                    <b> findOne</b>
                                 </td>
                             </tr>
+            
                             <tr>
                                 <td class="col-md-4">
-                                    <code>lastName:     <code>string</code>
-            </bcode>
+            <code>findOne(id: number)</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>void</code>
+            
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> update</b>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            <code>update(id: number, updateTimeslotDto: <a href="../classes/UpdateTimeslotDto.html" >UpdateTimeslotDto</a>)</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>void</code>
+            
+                                        </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <b> remove</b>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+            <code>remove(id: number)</code>
+                                </td>
+                            </tr>
+            
+                            <tr>
+                                <td class="col-md-4">
+                                        <div class="io-description">
+                                            <b>Returns: </b>    <code>void</code>
+            
+                                        </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
             </section>
+
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
-        <pre><code class="hljs javascript">import { IsEmail, IsOptional, IsString } from &#x27;class-validator&#x27;
+        <pre><code class="hljs javascript">import { Injectable } from &#x27;@nestjs/common&#x27;
+import { CreateTimeslotDto } from &#x27;./dto/create-timeslot.dto&#x27;
+import { UpdateTimeslotDto } from &#x27;./dto/update-timeslot.dto&#x27;
 
-export class EditUserDto {
-  @IsEmail()
-  @IsOptional()
-  email?: string
+@Injectable()
+export class TimeslotService {
+  create(createTimeslotDto: CreateTimeslotDto) {
+    return &#x27;This action adds a new timeslot&#x27;
+  }
 
-  @IsString()
-  @IsOptional()
-  firstName?: string
+  findAll() {
+    return &#x60;This action returns all timeslot&#x60;
+  }
 
-  @IsString()
-  @IsOptional()
-  lastName?: string
+  findOne(id: number) {
+    return &#x60;This action returns a #${id} timeslot&#x60;
+  }
+
+  update(id: number, updateTimeslotDto: UpdateTimeslotDto) {
+    return &#x60;This action updates a #${id} timeslot&#x60;
+  }
+
+  remove(id: number) {
+    return &#x60;This action removes a #${id} timeslot&#x60;
+  }
 }
 </code></pre>
     </div>
 </div>
+
+
 
 
 
