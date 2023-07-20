@@ -70,26 +70,14 @@ GET {{u}}/users/me
 POST {{u}}/auth/signin
 Content-Type: application/x-www-form-urlencoded
 
-email=laciferin@gmail.com&password=Hiro*2412412###@##P
+email=hirostudent@gmail.com&password=Hiro*2412412###@##P
 
-###
-POST {{u}}/auth/signin
-Content-Type: application/x-www-form-urlencoded
-
-email=superdean@gmail.com&password=Hiro123@
-
-###
-
-POST {{u}}/auth/signup
-Content-Type: application/x-www-form-urlencoded
-
-email=superdean@gmail.com&password=Hiro123@
 
 ###
 POST {{u}}/auth/signup
 Content-Type: application/x-www-form-urlencoded
 
-email=laciferin@gmail.com&password=Hiro*2412412###@##P
+email=hirostudent@gmail.com&password=Hiro*2412412###@##P
 
 ###
 

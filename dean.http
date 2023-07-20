@@ -1,0 +1,44 @@
+### Dean,Reviews His Calendar. Looks up for active sessions
+
+GET {{u}}/calendars
+
+
+### Set Timeslots for every day
+
+POST {{u}}/timeslots
+Content-Type: application/json
+
+{
+  "startTime": "07:00",
+  "endTime": "07:20",
+  "available": true,
+  "eventId": "976b4c94-e4b1-4917-a156-7f6e90294b0d"
+}
+
+
+###
+GET {{u}}/events
+
+### Create event
+POST {{u}}/events
+Content-Type: application/json
+
+{
+  "title": "Catchup: 20m",
+  "duration": 20,
+  "description":"Daily catchup call"
+}
+
+###
+POST {{u}}/auth/signin
+Content-Type: application/x-www-form-urlencoded
+
+email=superdean@gmail.com&password=Hiro123@
+
+
+###
+
+POST {{u}}/auth/signup
+Content-Type: application/x-www-form-urlencoded
+
+email=superdean@gmail.com&password=Hiro123@
