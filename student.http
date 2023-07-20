@@ -24,9 +24,6 @@ Content-Type: application/x-www-form-urlencoded
 
 email=tadashiStudent@gmail.com&password=Hiro*2412412###@##P
 
-> {%
-  client.global.set("student", response.body.json.access_token);
-%}
 
 ### Student Signup
 POST {{u}}/auth/signup
