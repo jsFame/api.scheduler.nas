@@ -1,11 +1,11 @@
-import { Test } from "@nestjs/testing";
-import { AppModule } from "../src/app.module";
-import { HttpStatus, INestApplication, ValidationPipe } from "@nestjs/common";
-import * as pactum from "pactum";
-import { ConfigService } from "@nestjs/config";
-import { PrismaService } from "../src/prisma/prisma.service";
-import { AuthDto } from "../src/auth/dto";
-import { EditUserDto } from "../src/user/dto";
+import { Test } from '@nestjs/testing'
+import { AppModule } from '../src/app.module'
+import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common'
+import * as pactum from 'pactum'
+import { ConfigService } from '@nestjs/config'
+import { PrismaService } from '../src/prisma/prisma.service'
+import { AuthDto } from '../src/auth/dto'
+import { EditUserDto } from '../src/user/dto'
 
 describe('App e2e', () => {
   let app: INestApplication
@@ -255,6 +255,39 @@ describe('App e2e', () => {
     })
   })
 
-  describe(')
-
+  describe('Event', () => {
+    describe('Create Event', () => {
+      it('show create event for dean', () => {
+        return pactum
+          .spec()
+          .withHeaders({
+            Authorization: `Bearer $S{dean}`,
+          })
+          .post('/events')
+          .withBody({
+            title: 'Test Event with Hiro',
+            description: 'Casual Call',
+            date: '2023-02-01',
+          })
+          .expectStatus(HttpStatus.CREATED)
+          .stores('id', 'eventId')
+      })
+    })
+  })
+  describe('TimeSlot', () => {
+    it("show create timeslot for dean's event", () => {
+      return pactum
+        .spec()
+        .withHeaders({
+          Authorization: `Bearer $S{dean}`,
+        })
+        .post('/timeslots')
+        .withBody({
+          eventId: '$S{eventId}',
+          startTime: '10:00',
+          endTime: '11:20',
+        })
+        .expectStatus(HttpStatus.CREATED)
+    })
+  })
 })
