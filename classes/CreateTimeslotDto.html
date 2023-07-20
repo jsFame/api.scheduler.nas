@@ -414,21 +414,6 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <b> endTime</b>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-4">
-                                    <code>endTime:     <code>string | Date</code>
-            </bcode>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
                                     <b> eventId</b>
                                 </td>
                             </tr>
@@ -468,10 +453,7 @@ export class CreateTimeslotDto {
   // @IsDate()
   @IsString()
   startTime: Date | string
-  // @IsDate()
-  @IsString()
-  @IsOptional()
-  endTime: Date | string
+
   @IsOptional()
   @IsBoolean()
   available: boolean
@@ -481,9 +463,7 @@ export class CreateTimeslotDto {
   }
   format() {
     this.startTime &#x3D; moment(this.startTime, &#x27;HH:mm&#x27;).toDate()
-    this.endTime &#x3D; moment(this.endTime, &#x27;HH:mm&#x27;).toDate()
     console.debug(this.startTime)
-    console.debug(this.endTime)
   }
 }
 </code></pre>
