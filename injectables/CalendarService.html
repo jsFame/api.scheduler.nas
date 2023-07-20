@@ -428,6 +428,7 @@ export class CalendarService {
   create(dto: CreateCalendarDto) {
     const eventDate &#x3D; moment(dto.date, &#x27;YYYY-MM-DD&#x27;)
     dto.date &#x3D; eventDate.toDate()
+    console.debug({ eventDate })
     return this.prisma.calendar.create({
       data: dto,
     })
