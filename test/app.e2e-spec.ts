@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config'
 import { PrismaService } from '../src/prisma/prisma.service'
 import { AuthDto } from '../src/auth/dto'
 import { EditUserDto } from '../src/user/dto'
+import * as moment from 'moment'
 
 describe('App e2e', () => {
   let app: INestApplication
@@ -288,6 +289,33 @@ describe('App e2e', () => {
           endTime: '11:20',
         })
         .expectStatus(HttpStatus.CREATED)
+    })
+  })
+
+  describe('Calendar', () => {
+    it('book an event today', () => {
+      return pactum
+        .spec()
+        .withHeaders({
+          Authorization: `Bearer $S{hiro}`,
+        })
+        .post('/calendar')
+        .withBody({
+          eventId: '$S{eventId}',
+          date: moment(new Date()).toDate(),
+        })
+        .expectStatus(HttpStatus.CREATED)
+    })
+
+    it('all the pending events for today-dean', () => {
+      return pactum
+        .spec()
+        .withHeaders({
+          Authorization: `Bearer $S{dean}`,
+        })
+        .get('/calendar')
+        .expectStatus(HttpStatus.OK)
+        .expectBodyContains('eventId')
     })
   })
 })
