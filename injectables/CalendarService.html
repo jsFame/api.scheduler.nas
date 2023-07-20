@@ -348,6 +348,19 @@
         </p>
 
 
+            <section>
+                <h3 id="constructor">Constructor</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>constructor(prisma: <a href="../injectables/PrismaService.html" >PrismaService</a>)</code>
+                                </td>
+                            </tr>
+            
+                        </tbody>
+                    </table>
+            </section>
 
             <section>
                 <h3 id="methods">Methods</h3>
@@ -385,79 +398,7 @@
             
                             <tr>
                                 <td class="col-md-4">
-            <code>findAll()</code>
-                                </td>
-                            </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description">
-                                            <b>Returns: </b>    <code>void</code>
-            
-                                        </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <b> findOne</b>
-                                </td>
-                            </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-            <code>findOne(id: number)</code>
-                                </td>
-                            </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description">
-                                            <b>Returns: </b>    <code>void</code>
-            
-                                        </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <b> update</b>
-                                </td>
-                            </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-            <code>update(id: number, updateCalendarDto: <a href="../classes/UpdateCalendarDto.html" >UpdateCalendarDto</a>)</code>
-                                </td>
-                            </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-                                        <div class="io-description">
-                                            <b>Returns: </b>    <code>void</code>
-            
-                                        </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <table class="table table-sm table-bordered">
-                        <tbody>
-                            <tr>
-                                <td class="col-md-4">
-                                    <b> remove</b>
-                                </td>
-                            </tr>
-            
-                            <tr>
-                                <td class="col-md-4">
-            <code>remove(id: number)</code>
+            <code>findAll(userId: number)</code>
                                 </td>
                             </tr>
             
@@ -477,19 +418,42 @@
     <div class="tab-pane fade tab-source-code" id="source">
         <pre><code class="hljs javascript">import { Injectable } from &#x27;@nestjs/common&#x27;
 import { CreateCalendarDto } from &#x27;./dto/create-calendar.dto&#x27;
-import { UpdateCalendarDto } from &#x27;./dto/update-calendar.dto&#x27;
+import { PrismaService } from &#x27;../prisma/prisma.service&#x27;
 
 @Injectable()
 export class CalendarService {
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createCalendarDto: CreateCalendarDto) {
-    return &#x27;This action adds a new calendar&#x27;
+    return this.prisma.calendar.create({
+      data: createCalendarDto,
+    })
   }
 
-  findAll() {
-    return &#x60;This action returns all calendar&#x60;
+  findAll(userId: number) {
+    return this.prisma.calendar.findMany({
+      where: {
+        OR: [
+          {
+            guestId: userId,
+          },
+          {
+            timeslot: {
+              event: {
+                hostId: userId,
+              },
+            },
+          },
+        ],
+      },
+      /*include: {
+        timeslot: true,
+        event: true,
+      },*/
+    })
   }
 
-  findOne(id: number) {
+  /*  findOne(id: number) {
     return &#x60;This action returns a #${id} calendar&#x60;
   }
 
@@ -499,7 +463,7 @@ export class CalendarService {
 
   remove(id: number) {
     return &#x60;This action removes a #${id} calendar&#x60;
-  }
+  }*/
 }
 </code></pre>
     </div>
