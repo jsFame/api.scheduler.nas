@@ -484,10 +484,12 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       ],
     })
     // @ts-ignore
-    this.$on(&#x27;query&#x27;, (e: any) &#x3D;&gt; {
-      console.log(&#x27;Query: &#x27; + e?.query)
-      console.log(&#x27;Params: &#x27; + e?.params)
-      console.log(&#x27;Duration: &#x27; + e?.duration + &#x27;ms&#x27;)
+    this.$on(&#x27;query&#x27;, async (e: any) &#x3D;&gt; {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const chalk &#x3D; require(&#x27;chalk&#x27;)
+      console.log(chalk.yellow(&#x27;Query: &#x27;) + chalk.green(e.query))
+      console.log(chalk.yellow(&#x27;Params: &#x27;) + chalk.cyan(JSON.stringify(e.params)))
+      console.log(chalk.yellow(&#x27;Duration: &#x27;) + chalk.magenta(&#x60;${e.duration}ms&#x60;))
     })
   }
   async onModuleInit() {
