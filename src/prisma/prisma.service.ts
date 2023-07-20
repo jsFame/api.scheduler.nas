@@ -1,6 +1,7 @@
 import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common'
 import { PrismaClient } from '@prisma/client'
 import { ConfigService } from '@nestjs/config'
+import kleur from 'kleur'
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -35,13 +36,18 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         },
       ],
     })
+
+    process.env.FORCE_COLOR = 'true'
+
     // @ts-ignore
     this.$on('query', async (e: any) => {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const chalk = require('chalk')
-      console.log(chalk.yellow('Query: ') + chalk.green(e.query))
-      console.log(chalk.yellow('Params: ') + chalk.cyan(JSON.stringify(e.params)))
-      console.log(chalk.yellow('Duration: ') + chalk.magenta(`${e.duration}ms`))
+      // const chalk = await import('chalk')
+      // console.log(chalk.yellow('Query: ') + chalk.green(e.query))
+      // console.log(chalk.yellow('Params: ') + chalk.cyan(JSON.stringify(e.params)))
+      // console.log(chalk.yellow('Duration: ') + chalk.magenta(`${e.duration}ms`))
+      console.log(kleur.yellow('Query: ') + kleur.green(e.query))
+      console.log(kleur.yellow('Params: ') + kleur.cyan(JSON.stringify(e.params)))
+      console.log(kleur.yellow('Duration: ') + kleur.magenta(`${e.duration}ms`))
     })
   }
   async onModuleInit() {
@@ -53,11 +59,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     this.$on('beforeExit', async () => {
       await app.close()
     })
-    /*    this.$on('query', (e: any) => { //FIXME me https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/logging#event-based-logging
-      console.log('Query: ' + e.query)
-      console.log('Params: ' + e.params)
-      console.log('Duration: ' + e.duration + 'ms')
-    })*/
   }
 
   cleanDb() {
