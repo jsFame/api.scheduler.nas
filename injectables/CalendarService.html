@@ -392,13 +392,16 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <b> findAll</b>
+                                    <b><span class="modifier"></span> findAll</b>
                                 </td>
                             </tr>
             
                             <tr>
                                 <td class="col-md-4">
-            <code>findAll(userId: number)</code>
+                                        <span class="modifier-icon method fa fa-play ">
+                                            <span class="fa fa-"></span>
+                                        </span>
+                                    <code>findAll(userId: number)</code>
                                 </td>
                             </tr>
             
@@ -434,13 +437,13 @@ export class CalendarService {
     })
   }
 
-  findAll(userId: number) {
+  async findAll(userId: number) {
     return this.prisma.calendar.findMany({
       where: {
         OR: [
-          {
+          /*   {
             guestId: userId,
-          },
+          },*/
           {
             timeslot: {
               event: {
@@ -450,10 +453,9 @@ export class CalendarService {
           },
         ],
       },
-      /*include: {
+      include: {
         timeslot: true,
-        event: true,
-      },*/
+      },
     })
   }
 

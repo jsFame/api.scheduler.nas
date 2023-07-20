@@ -450,6 +450,8 @@
 import { PrismaClient } from &#x27;@prisma/client&#x27;
 import { ConfigService } from &#x27;@nestjs/config&#x27;
 import kleur from &#x27;kleur&#x27;
+import { format } from &#x27;sql-formatter&#x27;
+import { query } from &#x27;express&#x27;
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -493,7 +495,16 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       // console.log(chalk.yellow(&#x27;Query: &#x27;) + chalk.green(e.query))
       // console.log(chalk.yellow(&#x27;Params: &#x27;) + chalk.cyan(JSON.stringify(e.params)))
       // console.log(chalk.yellow(&#x27;Duration: &#x27;) + chalk.magenta(&#x60;${e.duration}ms&#x60;))
-      console.log(kleur.yellow(&#x27;Query: &#x27;) + kleur.green(e.query))
+      const query &#x3D; e.query
+
+      const formattedQuery &#x3D; format(query, {
+        language: &#x27;postgresql&#x27;,
+        tabWidth: 2,
+        keywordCase: &#x27;upper&#x27;,
+        linesBetweenQueries: 2,
+        params: e.params || [],
+      })
+      console.log(kleur.yellow(&#x27;Query: &#x27;) + kleur.green(formattedQuery))
       console.log(kleur.yellow(&#x27;Params: &#x27;) + kleur.cyan(JSON.stringify(e.params)))
       console.log(kleur.yellow(&#x27;Duration: &#x27;) + kleur.magenta(&#x60;${e.duration}ms&#x60;))
     })
