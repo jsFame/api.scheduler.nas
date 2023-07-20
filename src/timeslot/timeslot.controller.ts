@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
 import { TimeslotService } from './timeslot.service'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
 
@@ -15,8 +15,8 @@ export class TimeslotController {
   findAll(@Param(':eventId') eventId: string) {
     return this.timeslotService.findAll(eventId)
   }
-  @Get(':eventId')
-  findEventsOfUserId(@Param(':eventId') eventId: string) {
+  @Get()
+  findEventsOfUserId(@Query('eventId') eventId: string) {
     return this.timeslotService.findAll(eventId)
   }
 

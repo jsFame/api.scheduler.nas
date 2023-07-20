@@ -287,12 +287,25 @@ describe('App e2e', () => {
           eventId: '$S{eventId}',
           startTime: '10:00',
           endTime: '11:20',
+          available: true,
         })
         .expectStatus(HttpStatus.CREATED)
     })
   })
 
   describe('Calendar', () => {
+    it('hiro checks for timeslots with dean', () => {
+      const response = pactum
+        .spec()
+        .withHeaders({
+          Authorization: `Bearer $S{hiro}`,
+        })
+        .get(`/timeslots`)
+        .withQueryParams('eventId', '$S{eventId}')
+
+      // response.body TODO:
+    })
+
     it('book an event today', () => {
       return pactum
         .spec()
