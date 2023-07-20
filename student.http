@@ -22,16 +22,26 @@ GET {{u}}/timeslots?eventId={{deanEventId}}
   function isTimeSlotAfterNow(startTimeISO) {
     const startTime = new Date(startTimeISO);
     const now = new Date();
-    return startTime > now;
+
+    const startTimeHour = startTime.getUTCHours();
+    const startTimeMinute = startTime.getUTCMinutes();
+
+    const nowHour = now.getUTCHours();
+    const nowMinute = now.getUTCMinutes();
+
+    client.log(JSON.stringify({ nowHour,startTimeHour }))
+
+    return startTimeHour > nowHour //|| (startTimeHour === nowHour && startTimeMinute > nowMinute);
   }
+
   events =response.body
   client.log(events)
 
   for(i=0;i<events.length;i++){
     e = events[i]
-    client.log({e})
+
     if (e.available &&isTimeSlotAfterNow(e.startTime) ){
-      client.log("timesSlotid set", e.id)
+      client.log("timesSlotid set "+e.id+" "+ e.startTime)
       client.global.set("timeSlotId",e.id)
       break
     }
