@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common'
 import { CreateCalendarDto } from './dto/create-calendar.dto'
-import { UpdateCalendarDto } from './dto/update-calendar.dto'
 import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
@@ -8,14 +7,27 @@ export class CalendarService {
   constructor(private readonly prisma: PrismaService) {}
 
   create(createCalendarDto: CreateCalendarDto) {
-    return 'This action adds a new calendar'
+    return this.prisma.calendar.create({
+      data: createCalendarDto,
+    })
   }
 
-  findAll() {
-    return `This action returns all calendar`
+  findAll(userId: number) {
+    return this.prisma.calendar.findMany({
+      where: {
+        guestId: userId,
+      },
+      include: {
+        timeslot: {
+          where: {
+            hostId: userId,
+          },
+        },
+      },
+    })
   }
 
-  findOne(id: number) {
+  /*  findOne(id: number) {
     return `This action returns a #${id} calendar`
   }
 
@@ -25,5 +37,5 @@ export class CalendarService {
 
   remove(id: number) {
     return `This action removes a #${id} calendar`
-  }
+  }*/
 }
