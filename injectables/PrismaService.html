@@ -455,6 +455,41 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   // FIXME doesn&#x27;t work for e2e OnModuleDestroy{
   // https://docs.nestjs.com/fundamentals/lifecycle-events
 
+  constructor(config: ConfigService) {
+    const sslcert &#x3D; &#x27;?sslcert&#x3D;root.crt&#x27;
+    //https://www.prisma.io/docs/concepts/database-connectors/postgresql#configuring-an-ssl-connection
+    super({
+      datasources: {
+        db: {
+          url: config.get&lt;string&gt;(&#x27;DATABASE_URL&#x27;) + sslcert,
+        },
+      },
+      log: [
+        {
+          emit: &#x27;event&#x27;,
+          level: &#x27;query&#x27;,
+        },
+        {
+          emit: &#x27;stdout&#x27;,
+          level: &#x27;error&#x27;,
+        },
+        {
+          emit: &#x27;stdout&#x27;,
+          level: &#x27;info&#x27;,
+        },
+        {
+          emit: &#x27;stdout&#x27;,
+          level: &#x27;warn&#x27;,
+        },
+      ],
+    })
+    // @ts-ignore
+    this.$on(&#x27;query&#x27;, (e: any) &#x3D;&gt; {
+      console.log(&#x27;Query: &#x27; + e?.query)
+      console.log(&#x27;Params: &#x27; + e?.params)
+      console.log(&#x27;Duration: &#x27; + e?.duration + &#x27;ms&#x27;)
+    })
+  }
   async onModuleInit() {
     console.info(new Date(), &#x27;connecting to the database&#x27;)
     await this.$connect()
@@ -469,17 +504,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       console.log(&#x27;Params: &#x27; + e.params)
       console.log(&#x27;Duration: &#x27; + e.duration + &#x27;ms&#x27;)
     })*/
-  }
-  constructor(config: ConfigService) {
-    const sslcert &#x3D; &#x27;?sslcert&#x3D;root.crt&#x27;
-    //https://www.prisma.io/docs/concepts/database-connectors/postgresql#configuring-an-ssl-connection
-    super({
-      datasources: {
-        db: {
-          url: config.get&lt;string&gt;(&#x27;DATABASE_URL&#x27;) + sslcert,
-        },
-      },
-    })
   }
 
   cleanDb() {
