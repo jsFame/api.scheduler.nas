@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CreateCalendarDto } from './dto/create-calendar.dto'
 import { PrismaService } from '../prisma/prisma.service'
-import * as moment from 'moment'
+import moment from 'moment'
 
 @Injectable()
 export class CalendarService {

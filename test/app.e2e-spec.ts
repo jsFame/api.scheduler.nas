@@ -6,7 +6,7 @@ import { ConfigService } from '@nestjs/config'
 import { PrismaService } from '../src/prisma/prisma.service'
 import { AuthDto } from '../src/auth/dto'
 import { EditUserDto } from '../src/user/dto'
-import * as moment from 'moment'
+import moment from 'moment'
 
 describe('App e2e', () => {
   let app: INestApplication

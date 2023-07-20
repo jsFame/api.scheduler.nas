@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
 import { PrismaService } from '../prisma/prisma.service'
-import * as moment from 'moment'
+import moment from 'moment'
 
 @Injectable()
 export class TimeslotService {
