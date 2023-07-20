@@ -12,7 +12,7 @@ Content-Type: application/json
   "startTime": "07:20",
   "endTime": "07:40",
   "available": true,
-  "eventId": "b5e6f45e-38ba-4d51-847c-aacf2f7d37d1"
+  "eventId": "{{deanEventId}}"
 }
 
 
@@ -25,13 +25,18 @@ POST {{u}}/events
 Content-Type: application/json
 
 {
-  "title": "Catchup: 20m",
+  "title": "New Catchup- new Dean",
   "duration": 20,
-  "description":"Daily catchup call"
+  "description":"Working Days catchup call"
 }
 
-
-@eventId={{event.response.body.id}}
+> {%
+ eventID = response.body.id;
+ if (eventID){
+   client.global.set("deanEventId", response.body.id);
+ }
+ client.assert(eventID, "event created")
+%}
 
 ### Dean Signin
 POST {{u}}/auth/signin
