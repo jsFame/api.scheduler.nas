@@ -443,7 +443,7 @@
             </section>
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
-        <pre><code class="hljs javascript">import { IsBoolean, IsString } from &#x27;class-validator&#x27;
+        <pre><code class="hljs javascript">import { IsBoolean, IsOptional, IsString } from &#x27;class-validator&#x27;
 import * as moment from &#x27;moment&#x27;
 
 export class CreateTimeslotDto {
@@ -453,6 +453,7 @@ export class CreateTimeslotDto {
   // @IsDate()
   @IsString()
   endTime: Date | string
+  @IsOptional()
   @IsBoolean()
   available: boolean
   constructor() {
