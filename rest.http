@@ -4,7 +4,8 @@ Content-Type: application/json
 {
   "startTime": "12:00",
   "endTime": "12:50",
-  "available": true
+  "available": true,
+  "eventId": "af95f82c-db41-4e9a-9cbc-147139b0adf9"
 }
 
 ###
@@ -14,7 +15,7 @@ Accept: application/json
 
 ###
 
-GET {{u}}/events/ac726346-f28b-4d7e-a6b3-a1b4f594485d
+GET {{u}}/events/af95f82c-db41-4e9a-9cbc-147139b0adf9
 Accept: application/json
 
 ###

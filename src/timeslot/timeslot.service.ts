@@ -1,15 +1,19 @@
 import { Injectable } from '@nestjs/common'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
 import { PrismaService } from '../prisma/prisma.service'
+import * as moment from 'moment'
 
 @Injectable()
 export class TimeslotService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createTimeslotDto: CreateTimeslotDto) {
+  create(dto: CreateTimeslotDto) {
     console.debug(createTimeslotDto)
+    let startTime = moment(dto.startTime, 'HH:mm')
+
+    dto.startTime = startTime.toDate()
     return this.prisma.timeSlot.create({
       data: {
-        ...createTimeslotDto,
+        ...dto,
         event: null,
       },
     })

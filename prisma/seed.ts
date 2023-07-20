@@ -43,7 +43,7 @@ async function main() {
   })
   console.log({ event })
 
-  const startTime = moment('12:00', 'HH:mm')
+  const startTime = moment('12:20', 'HH:mm')
   const endTime = startTime.clone().add(event.duration, 'minutes')
 
   console.log({ startTime, endTime })

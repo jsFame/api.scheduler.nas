@@ -7,6 +7,7 @@ export class CreateTimeslotDto {
   startTime: Date | string
   // @IsDate()
   @IsString()
+  @IsOptional()
   endTime: Date | string
   @IsOptional()
   @IsBoolean()
