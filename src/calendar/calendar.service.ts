@@ -15,15 +15,23 @@ export class CalendarService {
   findAll(userId: number) {
     return this.prisma.calendar.findMany({
       where: {
-        guestId: userId,
-      },
-      include: {
-        timeslot: {
-          where: {
-            hostId: userId,
+        OR: [
+          {
+            guestId: userId,
           },
-        },
+          {
+            timeslot: {
+              event: {
+                hostId: userId,
+              },
+            },
+          },
+        ],
       },
+      /*include: {
+        timeslot: true,
+        event: true,
+      },*/
     })
   }
 
