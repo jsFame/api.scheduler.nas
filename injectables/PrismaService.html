@@ -449,6 +449,7 @@
         <pre><code class="hljs javascript">import { INestApplication, Injectable, OnModuleInit } from &#x27;@nestjs/common&#x27;
 import { PrismaClient } from &#x27;@prisma/client&#x27;
 import { ConfigService } from &#x27;@nestjs/config&#x27;
+import kleur from &#x27;kleur&#x27;
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -483,13 +484,18 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
         },
       ],
     })
+
+    process.env.FORCE_COLOR &#x3D; &#x27;true&#x27;
+
     // @ts-ignore
     this.$on(&#x27;query&#x27;, async (e: any) &#x3D;&gt; {
-      // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const chalk &#x3D; require(&#x27;chalk&#x27;)
-      console.log(chalk.yellow(&#x27;Query: &#x27;) + chalk.green(e.query))
-      console.log(chalk.yellow(&#x27;Params: &#x27;) + chalk.cyan(JSON.stringify(e.params)))
-      console.log(chalk.yellow(&#x27;Duration: &#x27;) + chalk.magenta(&#x60;${e.duration}ms&#x60;))
+      // const chalk &#x3D; await import(&#x27;chalk&#x27;)
+      // console.log(chalk.yellow(&#x27;Query: &#x27;) + chalk.green(e.query))
+      // console.log(chalk.yellow(&#x27;Params: &#x27;) + chalk.cyan(JSON.stringify(e.params)))
+      // console.log(chalk.yellow(&#x27;Duration: &#x27;) + chalk.magenta(&#x60;${e.duration}ms&#x60;))
+      console.log(kleur.yellow(&#x27;Query: &#x27;) + kleur.green(e.query))
+      console.log(kleur.yellow(&#x27;Params: &#x27;) + kleur.cyan(JSON.stringify(e.params)))
+      console.log(kleur.yellow(&#x27;Duration: &#x27;) + kleur.magenta(&#x60;${e.duration}ms&#x60;))
     })
   }
   async onModuleInit() {
@@ -501,11 +507,6 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     this.$on(&#x27;beforeExit&#x27;, async () &#x3D;&gt; {
       await app.close()
     })
-    /*    this.$on(&#x27;query&#x27;, (e: any) &#x3D;&gt; { //FIXME me https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/logging#event-based-logging
-      console.log(&#x27;Query: &#x27; + e.query)
-      console.log(&#x27;Params: &#x27; + e.params)
-      console.log(&#x27;Duration: &#x27; + e.duration + &#x27;ms&#x27;)
-    })*/
   }
 
   cleanDb() {
