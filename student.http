@@ -1,17 +1,40 @@
-###  Student Reviews His Calendar
+### Student Signup
+POST {{u}}/auth/signup
+Content-Type: application/x-www-form-urlencoded
 
-GET {{u}}/calendars
+email=tadashiStudent@gmail.com&password=Hiro*2412412###@##P
 
-### Schedule a timeslot for future
+### Student Signin
+POST {{u}}/auth/signin
+Content-Type: application/x-www-form-urlencoded
 
-POST {{u}}/calendars
-Content-Type: application/json
+email=tadashiStudent@gmail.com&password=Hiro*2412412###@##P
 
-{
-  "timeSlotId": "{{timeSlotId}}",
-  "eventId": "{{deanEventId}}",
-  "date": "{{today}}"
-}
+
+### Gets all your events
+
+GET {{u}}/events
+
+### Gets events available "others"
+
+GET {{u}}/events/available
+
+> {%
+  // function getTodayInISO() {
+  //   const today = new Date();
+  //   const year = today.getFullYear();
+  //   const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
+  //   const day = String(today.getDate()).padStart(2, '0');
+  //   return `${year}-${month}-${day}`;
+  // }
+  function getTodayInISO() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  const todayInISO = getTodayInISO();
+  client.log(todayInISO);
+  client.global.set("today",todayInISO)
+%}
 
 ### Get Slots for the event
 
@@ -49,45 +72,21 @@ GET {{u}}/timeslots?eventId={{deanEventId}}
 
 %}
 
+### Schedule a timeslot for future
 
-### Gets events available "others"
+POST {{u}}/calendars
+Content-Type: application/json
 
-GET {{u}}/events/available
-
-> {%
-// function getTodayInISO() {
-//   const today = new Date();
-//   const year = today.getFullYear();
-//   const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
-//   const day = String(today.getDate()).padStart(2, '0');
-//   return `${year}-${month}-${day}`;
-// }
-function getTodayInISO() {
-  return new Date().toISOString().split('T')[0];
+{
+  "timeSlotId": "{{timeSlotId}}",
+  "eventId": "{{deanEventId}}",
+  "date": "{{today}}"
 }
 
-const todayInISO = getTodayInISO();
-client.log(todayInISO);
-client.global.set("today",todayInISO)
-%}
+###  Student Reviews His Calendar
 
-### Gets all your events
+GET {{u}}/calendars
 
-GET {{u}}/events
-
-
-### Student Signin
-POST {{u}}/auth/signin
-Content-Type: application/x-www-form-urlencoded
-
-email=tadashiStudent@gmail.com&password=Hiro*2412412###@##P
-
-
-### Student Signup
-POST {{u}}/auth/signup
-Content-Type: application/x-www-form-urlencoded
-
-email=tadashiStudent@gmail.com&password=Hiro*2412412###@##P
 
 
 
