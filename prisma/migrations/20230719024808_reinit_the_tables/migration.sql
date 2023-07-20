@@ -23,7 +23,7 @@ CREATE TABLE "timeslots" (
     "eventId" STRING NOT NULL,
     "startTime" TIME NOT NULL,
     "endTime" TIME NOT NULL,
-    "available" BOOL NOT NULL,
+    "available" BOOL NOT NULL DEFAULT true,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
