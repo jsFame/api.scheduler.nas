@@ -460,16 +460,15 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     await this.$connect()
   }
 
-  // async onModuleDestroy() {
-  //   console.warn(new Date(), &#x27;disconnecting the database&#x27;)
-  //   await this.$disconnect()
-  //   console.info(new Date(), &#x27;disconnected database&#x27;)
-  // }
-
   async enableShutdownHooks(app: INestApplication) {
     this.$on(&#x27;beforeExit&#x27;, async () &#x3D;&gt; {
       await app.close()
     })
+    /*    this.$on(&#x27;query&#x27;, (e: any) &#x3D;&gt; { //FIXME me https://www.prisma.io/docs/concepts/components/prisma-client/working-with-prismaclient/logging#event-based-logging
+      console.log(&#x27;Query: &#x27; + e.query)
+      console.log(&#x27;Params: &#x27; + e.params)
+      console.log(&#x27;Duration: &#x27; + e.duration + &#x27;ms&#x27;)
+    })*/
   }
   constructor(config: ConfigService) {
     const sslcert &#x3D; &#x27;?sslcert&#x3D;root.crt&#x27;
