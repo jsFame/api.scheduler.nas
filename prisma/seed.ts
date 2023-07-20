@@ -43,7 +43,7 @@ async function main() {
   })
   console.log({ event })
 
-  const startTime = moment('12:20', 'HH:mm')
+  const startTime = moment('12:00', 'HH:mm')
   const endTime = startTime.clone().add(event.duration, 'minutes')
 
   console.log({ startTime, endTime })
@@ -56,6 +56,8 @@ async function main() {
       endTime: endTime.toDate(),
     },
   })
+
+  console.log({ timeSlot })
 
   const today = new Date()
   const calendarInvite = await prisma.calendar.createMany({
