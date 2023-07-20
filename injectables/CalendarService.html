@@ -374,7 +374,7 @@
             
                             <tr>
                                 <td class="col-md-4">
-            <code>create(createCalendarDto: <a href="../classes/CreateCalendarDto.html" >CreateCalendarDto</a>)</code>
+            <code>create(dto: <a href="../classes/CreateCalendarDto.html" >CreateCalendarDto</a>)</code>
                                 </td>
                             </tr>
             
@@ -419,14 +419,17 @@
         <pre><code class="hljs javascript">import { Injectable } from &#x27;@nestjs/common&#x27;
 import { CreateCalendarDto } from &#x27;./dto/create-calendar.dto&#x27;
 import { PrismaService } from &#x27;../prisma/prisma.service&#x27;
+import * as moment from &#x27;moment&#x27;
 
 @Injectable()
 export class CalendarService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createCalendarDto: CreateCalendarDto) {
+  create(dto: CreateCalendarDto) {
+    const eventDate &#x3D; moment(dto.date, &#x27;YYYY-MM-DD&#x27;)
+    dto.date &#x3D; eventDate.toDate()
     return this.prisma.calendar.create({
-      data: createCalendarDto,
+      data: dto,
     })
   }
 
