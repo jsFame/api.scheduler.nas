@@ -30,7 +30,9 @@ model Event {
   title       String
   description String?
   hostId      Int
-  duration    Int // in minutes
+
+  ///IsNumber()
+  duration Int // in minutes
   // location    String?
 
   host User @relation(fields: [hostId], references: [id], onDelete: Cascade)
@@ -50,11 +52,12 @@ model TimeSlot {
   startTime DateTime @db.Time() // FIXME:@db.Timetz()
   endTime   DateTime @db.Time()
   available Boolean
-  event     Event    @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   Calendar  Calendar[]
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
   @@unique([eventId, startTime, endTime])
   @@map("timeslots")

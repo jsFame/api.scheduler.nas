@@ -1,9 +1,8 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post } from '@nestjs/common'
 import { TimeslotService } from './timeslot.service'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
-import { UpdateTimeslotDto } from './dto/update-timeslot.dto'
 
-@Controller('timeslot')
+@Controller('timeslots')
 export class TimeslotController {
   constructor(private readonly timeslotService: TimeslotService) {}
 
@@ -12,12 +11,16 @@ export class TimeslotController {
     return this.timeslotService.create(createTimeslotDto)
   }
 
-  @Get()
-  findAll() {
-    return this.timeslotService.findAll()
+  @Get('')
+  findAll(@Param(':eventId') eventId: string) {
+    return this.timeslotService.findAll(eventId)
+  }
+  @Get(':eventId')
+  findEventsOfUserId(@Param(':eventId') eventId: string) {
+    return this.timeslotService.findAll(eventId)
   }
 
-  @Get(':id')
+  /*  @Get(':id')
   findOne(@Param('id') id: string) {
     return this.timeslotService.findOne(+id)
   }
@@ -30,5 +33,5 @@ export class TimeslotController {
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.timeslotService.remove(+id)
-  }
+  }*/
 }

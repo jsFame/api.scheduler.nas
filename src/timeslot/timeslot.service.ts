@@ -1,20 +1,29 @@
 import { Injectable } from '@nestjs/common'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
-import { UpdateTimeslotDto } from './dto/update-timeslot.dto'
 import { PrismaService } from '../prisma/prisma.service'
 
 @Injectable()
 export class TimeslotService {
   constructor(private readonly prisma: PrismaService) {}
   create(createTimeslotDto: CreateTimeslotDto) {
-    return this.prisma.timeslot({})
+    console.debug(createTimeslotDto)
+    return this.prisma.timeSlot.create({
+      data: {
+        ...createTimeslotDto,
+        event: null,
+      },
+    })
   }
 
-  findAll() {
-    return `This action returns all timeslot`
+  findAll(eventId?: string) {
+    return this.prisma.timeSlot.findMany({
+      where: {
+        eventId,
+      },
+    })
   }
 
-  findOne(id: number) {
+  /*  findOne(id: number) {
     return `This action returns a #${id} timeslot`
   }
 
@@ -24,5 +33,5 @@ export class TimeslotService {
 
   remove(id: number) {
     return `This action removes a #${id} timeslot`
-  }
+  }*/
 }
