@@ -10,6 +10,7 @@ export class CalendarService {
   create(dto: CreateCalendarDto) {
     const eventDate = moment(dto.date, 'YYYY-MM-DD')
     dto.date = eventDate.toDate()
+    console.debug({ eventDate })
     return this.prisma.calendar.create({
       data: dto,
     })

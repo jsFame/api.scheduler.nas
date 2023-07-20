@@ -8,12 +8,60 @@ POST {{u}}/calendars
 Content-Type: application/json
 
 {
-  "timeSlotId": "dea96dd3-575e-4408-af76-236ef12d9ead",
-  "eventId": "976b4c94-e4b1-4917-a156-7f6e90294b0d",
-  "date": "2023-07-22"
+  "timeSlotId": "{{timeSlotId}}",
+  "eventId": "{{deanEventId}}",
+  "date": "{{today}}"
 }
 
-### Gets all the events
+### Get Slots for the event
+
+GET {{u}}/timeslots?eventId={{deanEventId}}
+
+> {%
+
+  function isTimeSlotAfterNow(startTimeISO) {
+    const startTime = new Date(startTimeISO);
+    const now = new Date();
+    return startTime > now;
+  }
+  events =response.body
+  client.log(events)
+
+  for(i=0;i<events.length;i++){
+    e = events[i]
+    client.log({e})
+    if (e.available &&isTimeSlotAfterNow(e.startTime) ){
+      client.log("timesSlotid set", e.id)
+      client.global.set("timeSlotId",e.id)
+      break
+    }
+  }
+
+%}
+
+
+### Gets events available "others"
+
+GET {{u}}/events/available
+
+> {%
+// function getTodayInISO() {
+//   const today = new Date();
+//   const year = today.getFullYear();
+//   const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed, so add 1
+//   const day = String(today.getDate()).padStart(2, '0');
+//   return `${year}-${month}-${day}`;
+// }
+function getTodayInISO() {
+  return new Date().toISOString().split('T')[0];
+}
+
+const todayInISO = getTodayInISO();
+client.log(todayInISO);
+client.global.set("today",todayInISO)
+%}
+
+### Gets all your events
 
 GET {{u}}/events
 

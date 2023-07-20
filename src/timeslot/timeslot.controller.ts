@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common'
 import { TimeslotService } from './timeslot.service'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
 import { JwtGuard } from '../auth/guard'
@@ -13,12 +13,8 @@ export class TimeslotController {
     return this.timeslotService.create(createTimeslotDto)
   }
 
-  @Get('')
-  findAll(@Param(':eventId') eventId: string) {
-    return this.timeslotService.findAll(eventId)
-  }
   @Get()
-  findEventsOfUserId(@Query('eventId') eventId: string) {
+  findAll(@Param(':eventId') eventId: string) {
     return this.timeslotService.findAll(eventId)
   }
 

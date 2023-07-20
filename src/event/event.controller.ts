@@ -32,6 +32,12 @@ export class EventController {
     return this.eventService.findAll(userId)
   }
 
+  @Get('/available')
+  async findAvailableEvents(@GetUser('userId') userId: number) {
+    let events = await this.eventService.findAll()
+    return events
+  }
+
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const e = await this.eventService.findOne(id)

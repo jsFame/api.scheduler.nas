@@ -11,7 +11,7 @@ export class EventService {
     })
   }
 
-  findAll(userId: number) {
+  findAll(userId?: number) {
     return this.prisma.event.findMany({
       where: {
         hostId: userId,
