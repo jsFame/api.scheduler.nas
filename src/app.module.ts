@@ -31,7 +31,7 @@ switch (mode) {
 }
 
 if (mode in ['dev', 'test']) {
-  process.env.DEBUG = 'prisma:client,prisma:engine'
+  process.env.DEBUG = 'prisma:*'
 }
 
 @Module({
