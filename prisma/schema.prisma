@@ -51,7 +51,7 @@ model TimeSlot {
   eventId   String
   startTime DateTime @db.Time() // FIXME:@db.Timetz()
   endTime   DateTime @db.Time()
-  available Boolean
+  available Boolean  @default(true)
 
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
