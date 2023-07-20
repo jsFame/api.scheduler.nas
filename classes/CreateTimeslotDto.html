@@ -429,6 +429,21 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
+                                    <b> eventId</b>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-4">
+                                    <code>eventId:     <code>string</code>
+            </bcode>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                            <tr>
+                                <td class="col-md-4">
                                     <b> startTime</b>
                                 </td>
                             </tr>
@@ -443,19 +458,24 @@
             </section>
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
-        <pre><code class="hljs javascript">import { IsBoolean, IsOptional, IsString } from &#x27;class-validator&#x27;
+        <pre><code class="hljs javascript">import { IsBoolean, IsOptional, IsString, IsUUID } from &#x27;class-validator&#x27;
 import * as moment from &#x27;moment&#x27;
 
 export class CreateTimeslotDto {
+  @IsUUID()
+  eventId: string
+
   // @IsDate()
   @IsString()
   startTime: Date | string
   // @IsDate()
   @IsString()
+  @IsOptional()
   endTime: Date | string
   @IsOptional()
   @IsBoolean()
   available: boolean
+
   constructor() {
     this.format()
   }

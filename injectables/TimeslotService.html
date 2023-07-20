@@ -368,13 +368,16 @@
                         <tbody>
                             <tr>
                                 <td class="col-md-4">
-                                    <b> create</b>
+                                    <b><span class="modifier"></span> create</b>
                                 </td>
                             </tr>
             
                             <tr>
                                 <td class="col-md-4">
-            <code>create(createTimeslotDto: <a href="../classes/Timeslot.html" >CreateTimeslotDto</a>)</code>
+                                        <span class="modifier-icon method fa fa-play ">
+                                            <span class="fa fa-"></span>
+                                        </span>
+                                    <code>create(dto: <a href="../classes/Timeslot.html" >CreateTimeslotDto</a>)</code>
                                 </td>
                             </tr>
             
@@ -419,16 +422,25 @@
         <pre><code class="hljs javascript">import { Injectable } from &#x27;@nestjs/common&#x27;
 import { CreateTimeslotDto } from &#x27;./dto/create-timeslot.dto&#x27;
 import { PrismaService } from &#x27;../prisma/prisma.service&#x27;
+import * as moment from &#x27;moment&#x27;
 
 @Injectable()
 export class TimeslotService {
   constructor(private readonly prisma: PrismaService) {}
-  create(createTimeslotDto: CreateTimeslotDto) {
-    console.debug(createTimeslotDto)
+  async create(dto: CreateTimeslotDto) {
+    const event &#x3D; await this.prisma.event.findUniqueOrThrow({
+      where: {
+        id: dto.eventId,
+      },
+    })
+
+    const startTime &#x3D; moment(dto.startTime, &#x27;HH:mm&#x27;)
+    const endTime &#x3D; startTime.clone().add(event.duration, &#x27;minutes&#x27;)
+    dto.startTime &#x3D; startTime.toDate()
+    dto.endTime &#x3D; endTime.toDate()
     return this.prisma.timeSlot.create({
       data: {
-        ...createTimeslotDto,
-        event: null,
+        ...dto,
       },
     })
   }
