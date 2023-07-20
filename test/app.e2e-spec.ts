@@ -1,11 +1,11 @@
-import { Test } from '@nestjs/testing'
-import { AppModule } from '../src/app.module'
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common'
-import * as pactum from 'pactum'
-import { ConfigService } from '@nestjs/config'
-import { PrismaService } from '../src/prisma/prisma.service'
-import { AuthDto } from '../src/auth/dto'
-import { EditUserDto } from '../src/user/dto'
+import { Test } from "@nestjs/testing";
+import { AppModule } from "../src/app.module";
+import { HttpStatus, INestApplication, ValidationPipe } from "@nestjs/common";
+import * as pactum from "pactum";
+import { ConfigService } from "@nestjs/config";
+import { PrismaService } from "../src/prisma/prisma.service";
+import { AuthDto } from "../src/auth/dto";
+import { EditUserDto } from "../src/user/dto";
 
 describe('App e2e', () => {
   let app: INestApplication
@@ -66,53 +66,83 @@ describe('App e2e', () => {
     })
   })
 
+  const dean = {
+    email: 'dean@nas-engineering.edu',
+    password: 'nasEduIsTheBest@2023',
+  }
+  const hiro = {
+    email: 'hiro2019-22@student.nas-engineering.edu',
+    password: 'Hiro Is An Engineer',
+  }
+
   describe('Auth', function () {
     const dto: AuthDto = {
       email: 'hiro_tests@gmail.com',
       password: 'testing@rQfAPjfVsreWGz2',
     }
+
+    it('should throw if email empty', () => {
+      return pactum
+        .spec()
+        .post('/auth/signup')
+        .withBody({
+          password: dto.password,
+        })
+        .expectStatus(400)
+        .inspect()
+    })
+
+    it('should throw if password empty', () => {
+      return pactum
+        .spec()
+        .post('/auth/signup')
+        .withBody({
+          email: dto.email,
+        })
+        .expectStatus(400)
+        .inspect()
+    })
+
+    it('should throw if not strong  password', () => {
+      return pactum
+        .spec()
+        .post('/auth/signup')
+        .withBody({
+          email: dto.email,
+          password: '123',
+        })
+        .expectStatus(400)
+        .inspect()
+    })
+
     describe('Sign up', () => {
       it('should signup', () => {
         return pactum
           .spec()
           .post(`${url}/auth/signup`)
           .withBody(dto)
-          .withRequestTimeout(2 * 1000) //cold start
+          .withRequestTimeout(2 * 1000)
           .expectStatus(HttpStatus.CREATED)
           .inspect()
       })
 
-      it('should throw if email empty', () => {
+      it('should signup the dean', () => {
         return pactum
           .spec()
-          .post('/auth/signup')
-          .withBody({
-            password: dto.password,
-          })
-          .expectStatus(400)
+          .post(`${url}/auth/signup`)
+          .withBody(dean)
+          .withRequestTimeout(2 * 1000)
+          .expectStatus(HttpStatus.CREATED)
           .inspect()
       })
 
-      it('should throw if password empty', () => {
+      it('should signup hiro', () => {
         return pactum
           .spec()
-          .post('/auth/signup')
-          .withBody({
-            email: dto.email,
-          })
-          .expectStatus(400)
-          .inspect()
-      })
-
-      it('should throw if not strang  password', () => {
-        return pactum
-          .spec()
-          .post('/auth/signup')
-          .withBody({
-            email: dto.email,
-            password: '123',
-          })
-          .expectStatus(400)
+          .post(`${url}/auth/signup`)
+          .withBody(hiro)
+          .withRequestTimeout(2 * 1000)
+          .expectStatus(HttpStatus.CREATED)
           .inspect()
       })
     })
@@ -144,6 +174,26 @@ describe('App e2e', () => {
           .withBody(dto)
           .expectStatus(200)
           .stores('userToken', 'access_token')
+          .expectCookiesLike('token')
+      })
+
+      it('should signin the dean', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody(dean)
+          .expectStatus(200)
+          .stores('dean', 'access_token')
+          .expectCookiesLike('token')
+      })
+
+      it('should signin hiro', () => {
+        return pactum
+          .spec()
+          .post('/auth/signin')
+          .withBody(hiro)
+          .expectStatus(200)
+          .stores('hiro', 'access_token')
           .expectCookiesLike('token')
       })
     })
@@ -192,7 +242,6 @@ describe('App e2e', () => {
           .expectBodyContains(dto.lastName)
       })
     })
-
     describe('Delete User', () => {
       it('should delete current user', () => {
         return pactum
@@ -205,4 +254,7 @@ describe('App e2e', () => {
       })
     })
   })
+
+  describe(')
+
 })
