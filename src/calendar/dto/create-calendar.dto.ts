@@ -1,10 +1,10 @@
-import { IsDateString, IsNumber, IsString } from 'class-validator'
+import { IsDateString, IsOptional, IsUUID } from 'class-validator'
 
 export class CreateCalendarDto {
-  @IsString()
+  @IsUUID()
   timeSlotId: string
 
-  @IsNumber()
+  @IsOptional()
   guestId: number
 
   @IsDateString()

@@ -1,7 +1,9 @@
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common'
+import { Body, Controller, Get, Param, Post, Query, UseGuards } from '@nestjs/common'
 import { TimeslotService } from './timeslot.service'
 import { CreateTimeslotDto } from './dto/create-timeslot.dto'
+import { JwtGuard } from '../auth/guard'
 
+@UseGuards(JwtGuard)
 @Controller('timeslots')
 export class TimeslotController {
   constructor(private readonly timeslotService: TimeslotService) {}

@@ -1,9 +1,11 @@
-import { Body, Controller, Get, Post } from '@nestjs/common'
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common'
 import { CalendarService } from './calendar.service'
 import { CreateCalendarDto } from './dto/create-calendar.dto'
 import { GetUser } from '../auth/decorator'
+import { JwtGuard } from '../auth/guard'
 
-@Controller('calendar')
+@UseGuards(JwtGuard)
+@Controller('calendars')
 export class CalendarController {
   constructor(private readonly calendarService: CalendarService) {}
 
@@ -12,6 +14,7 @@ export class CalendarController {
     @GetUser('userId') userId: number,
     @Body() createCalendarDto: CreateCalendarDto,
   ) {
+    createCalendarDto.guestId = userId
     return this.calendarService.create(createCalendarDto)
   }
 

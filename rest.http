@@ -1,27 +1,40 @@
+GET {{u}}/calendars
+
+###
+POST {{u}}/calendars
+Content-Type: application/json
+
+{
+  "timeSlotId": "dea96dd3-575e-4408-af76-236ef12d9ead",
+  "eventId": "976b4c94-e4b1-4917-a156-7f6e90294b0d",
+  "date": "2023-07-22"
+}
+
+###
+
 POST {{u}}/timeslots
 Content-Type: application/json
 
 {
-  "startTime": "12:00",
-  "endTime": "12:50",
+  "startTime": "07:00",
+  "endTime": "07:20",
   "available": true,
-  "eventId": "af95f82c-db41-4e9a-9cbc-147139b0adf9"
+  "eventId": "976b4c94-e4b1-4917-a156-7f6e90294b0d"
 }
 
 ###
 
 GET {{u}}/timeslots
-Accept: application/json
+
 
 ###
 
-GET {{u}}/events/af95f82c-db41-4e9a-9cbc-147139b0adf9
-Accept: application/json
+GET {{u}}/events/976b4c94-e4b1-4917-a156-7f6e90294b0d
+
 
 ###
 
 GET {{u}}/events
-Accept: application/json
 
 ###
 
@@ -51,13 +64,26 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsImVtYWlsI
 
 ###
 GET {{u}}/users/me
-Accept: application/json
+
 
 ###
 POST {{u}}/auth/signin
 Content-Type: application/x-www-form-urlencoded
 
 email=laciferin@gmail.com&password=Hiro*2412412###@##P
+
+###
+POST {{u}}/auth/signin
+Content-Type: application/x-www-form-urlencoded
+
+email=superdean@gmail.com&password=Hiro123@
+
+###
+
+POST {{u}}/auth/signup
+Content-Type: application/x-www-form-urlencoded
+
+email=superdean@gmail.com&password=Hiro123@
 
 ###
 POST {{u}}/auth/signup
@@ -72,7 +98,7 @@ Accept: application/json
 
 ###
 GET {{u}}
-Accept: application/json
+
 
 ###
 

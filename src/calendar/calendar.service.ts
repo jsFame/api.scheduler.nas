@@ -1,14 +1,17 @@
 import { Injectable } from '@nestjs/common'
 import { CreateCalendarDto } from './dto/create-calendar.dto'
 import { PrismaService } from '../prisma/prisma.service'
+import * as moment from 'moment'
 
 @Injectable()
 export class CalendarService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createCalendarDto: CreateCalendarDto) {
+  create(dto: CreateCalendarDto) {
+    const eventDate = moment(dto.date, 'YYYY-MM-DD')
+    dto.date = eventDate.toDate()
     return this.prisma.calendar.create({
-      data: createCalendarDto,
+      data: dto,
     })
   }
 
