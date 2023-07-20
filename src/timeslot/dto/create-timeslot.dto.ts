@@ -1,7 +1,10 @@
-import { IsBoolean, IsOptional, IsString } from 'class-validator'
+import { IsBoolean, IsOptional, IsString, IsUUID } from 'class-validator'
 import * as moment from 'moment'
 
 export class CreateTimeslotDto {
+  @IsUUID()
+  eventId: string
+
   // @IsDate()
   @IsString()
   startTime: Date | string
@@ -12,6 +15,7 @@ export class CreateTimeslotDto {
   @IsOptional()
   @IsBoolean()
   available: boolean
+
   constructor() {
     this.format()
   }

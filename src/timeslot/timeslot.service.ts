@@ -6,15 +6,20 @@ import * as moment from 'moment'
 @Injectable()
 export class TimeslotService {
   constructor(private readonly prisma: PrismaService) {}
-  create(dto: CreateTimeslotDto) {
-    console.debug(createTimeslotDto)
-    let startTime = moment(dto.startTime, 'HH:mm')
+  async create(dto: CreateTimeslotDto) {
+    const event = await this.prisma.event.findUniqueOrThrow({
+      where: {
+        id: dto.eventId,
+      },
+    })
 
+    const startTime = moment(dto.startTime, 'HH:mm')
+    const endTime = startTime.clone().add(event.duration, 'minutes')
     dto.startTime = startTime.toDate()
+    dto.endTime = endTime.toDate()
     return this.prisma.timeSlot.create({
       data: {
         ...dto,
-        event: null,
       },
     })
   }
