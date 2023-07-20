@@ -1,26 +1,17 @@
-### Dean,Reviews His Calendar. Looks up for active sessions
+### Dean SignsUp
 
-GET {{u}}/calendars
+POST {{u}}/auth/signup
+Content-Type: application/x-www-form-urlencoded
 
+email=superdean@gmail.com&password=Hiro123@
 
-### Set Timeslots for every day
+### Dean Signin
+POST {{u}}/auth/signin
+Content-Type: application/x-www-form-urlencoded
 
-POST {{u}}/timeslots
-Content-Type: application/json
-
-{
-  "startTime": "07:20",
-  "endTime": "07:40",
-  "available": true,
-  "eventId": "{{deanEventId}}"
-}
-
-
-### Dean Gets His Host Events
-GET {{u}}/events
+email=superdean@gmail.com&password=Hiro123@
 
 ### Create event
-# @name event
 POST {{u}}/events
 Content-Type: application/json
 
@@ -31,23 +22,44 @@ Content-Type: application/json
 }
 
 > {%
- eventID = response.body.id;
- if (eventID){
-   client.global.set("deanEventId", response.body.id);
- }
- client.assert(eventID, "event created")
+  eventID = response.body.id;
+  if (eventID){
+    client.global.set("deanEventId", response.body.id);
+  }
+  client.assert(eventID, "event created")
 %}
 
-### Dean Signin
-POST {{u}}/auth/signin
-Content-Type: application/x-www-form-urlencoded
-
-email=superdean@gmail.com&password=Hiro123@
 
 
-###
+### Dean Gets His Host Events
+GET {{u}}/events
 
-POST {{u}}/auth/signup
-Content-Type: application/x-www-form-urlencoded
+> {%
+  d = new Date()
+  d.setHours(d.getHours() + 2);
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  slot=`${hours}:${minutes}`;
+  client.log(slot)
+  client.global.set("genTimeSlot",slot)
 
-email=superdean@gmail.com&password=Hiro123@
+%}
+
+
+### Set Timeslots for every day
+
+POST {{u}}/timeslots
+Content-Type: application/json
+
+
+{
+  "startTime": "{{genTimeSlot}}",
+  "endTime": "",
+  "available": true,
+  "eventId": "{{deanEventId}}"
+}
+
+### Dean,Reviews His Calendar. Looks up for active sessions
+
+GET {{u}}/calendars
+

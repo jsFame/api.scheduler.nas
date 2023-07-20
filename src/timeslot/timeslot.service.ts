@@ -16,10 +16,10 @@ export class TimeslotService {
     const startTime = moment(dto.startTime, 'HH:mm')
     const endTime = startTime.clone().add(event.duration, 'minutes')
     dto.startTime = startTime.toDate()
-    dto.endTime = endTime.toDate()
     return this.prisma.timeSlot.create({
       data: {
         ...dto,
+        endTime: endTime.toDate(),
       },
     })
   }

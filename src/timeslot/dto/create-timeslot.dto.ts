@@ -8,10 +8,7 @@ export class CreateTimeslotDto {
   // @IsDate()
   @IsString()
   startTime: Date | string
-  // @IsDate()
-  @IsString()
-  @IsOptional()
-  endTime: Date | string
+
   @IsOptional()
   @IsBoolean()
   available: boolean
@@ -21,8 +18,6 @@ export class CreateTimeslotDto {
   }
   format() {
     this.startTime = moment(this.startTime, 'HH:mm').toDate()
-    this.endTime = moment(this.endTime, 'HH:mm').toDate()
     console.debug(this.startTime)
-    console.debug(this.endTime)
   }
 }
