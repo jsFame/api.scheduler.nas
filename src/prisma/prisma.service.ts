@@ -1,9 +1,28 @@
-import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common'
-import { PrismaClient } from '@prisma/client'
-import { ConfigService } from '@nestjs/config'
-import kleur from 'kleur'
-import { format } from 'sql-formatter'
-import { query } from 'express'
+import { INestApplication, Injectable, OnModuleInit } from "@nestjs/common";
+import { Prisma, PrismaClient } from "@prisma/client";
+import { ConfigService } from "@nestjs/config";
+import kleur from "kleur";
+import { format } from "sql-formatter";
+import { query } from "express";
+
+const logEvents: Prisma.LogDefinition[] = [
+  {
+    emit: 'event',
+    level: 'query',
+  },
+  {
+    emit: 'stdout',
+    level: 'error',
+  },
+  {
+    emit: 'stdout',
+    level: 'info',
+  },
+  {
+    emit: 'stdout',
+    level: 'warn',
+  },
+]
 
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
@@ -19,39 +38,25 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
           url: config.get<string>('DATABASE_URL') + sslcert,
         },
       },
-      log: [
-        {
-          emit: 'event',
-          level: 'query',
-        },
-        {
-          emit: 'stdout',
-          level: 'error',
-        },
-        {
-          emit: 'stdout',
-          level: 'info',
-        },
-        {
-          emit: 'stdout',
-          level: 'warn',
-        },
-      ],
+      log: logEvents,
     })
 
     process.env.FORCE_COLOR = 'true'
 
     // @ts-ignore
     this.$on('query', async (e: any) => {
+      if (config.get<string>('M"MODE"!= 'd"dev"{
+        return
+ ;     }
+
       // const chalk = await import('chalk')
       // console.log(chalk.yellow('Query: ') + chalk.green(e.query))
       // console.log(chalk.yellow('Params: ') + chalk.cyan(JSON.stringify(e.params)))
       // console.log(chalk.yellow('Duration: ') + chalk.magenta(`${e.duration}ms`))
       const query = e.query
 
-      const formattedQuery = format(query, {
-        language: 'postgresql',
-        tabWidth: 2,
+;      const formattedQuery = format(query, {
+        language: 'p"postgresql"        tabWidth: 2,
         keywordCase: 'upper',
         linesBetweenQueries: 2,
         params: e.params || [],
