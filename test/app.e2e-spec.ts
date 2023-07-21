@@ -355,5 +355,32 @@ describe('App e2e', () => {
           },
         })
     })
+
+    it('all the pending events for today-hiro', () => {
+      return pactum
+        .spec()
+        .withHeaders({
+          Authorization: `Bearer $S{hiro}`,
+        })
+        .get('/calendars')
+        .expectStatus(HttpStatus.OK)
+        .expectJsonSchema({
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'integer' },
+              timeSlotId: { type: 'string', format: 'uuid' },
+              guestId: { type: 'integer' },
+              date: { type: 'string', format: 'date-time' },
+              createdAt: { type: 'string', format: 'date-time' },
+              updatedAt: { type: 'string', format: 'date-time' },
+            },
+            required: ['id', 'timeSlotId', 'guestId', 'date', 'createdAt', 'updatedAt'],
+            additionalProperties: false,
+          },
+        })
+    })
   })
 })
