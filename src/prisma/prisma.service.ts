@@ -1,9 +1,9 @@
-import { INestApplication, Injectable, OnModuleInit } from "@nestjs/common";
-import { Prisma, PrismaClient } from "@prisma/client";
-import { ConfigService } from "@nestjs/config";
-import kleur from "kleur";
-import { format } from "sql-formatter";
-import { query } from "express";
+import { INestApplication, Injectable, OnModuleInit } from '@nestjs/common'
+import { Prisma, PrismaClient } from '@prisma/client'
+import { ConfigService } from '@nestjs/config'
+import kleur from 'kleur'
+import { format } from 'sql-formatter'
+import { query } from 'express'
 
 const logEvents: Prisma.LogDefinition[] = [
   {
@@ -45,9 +45,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
 
     // @ts-ignore
     this.$on('query', async (e: any) => {
-      if (config.get<string>('M"MODE"!= 'd"dev"{
+      if (config.get<string>('MODE') != 'dev') {
         return
- ;     }
+      }
 
       // const chalk = await import('chalk')
       // console.log(chalk.yellow('Query: ') + chalk.green(e.query))
@@ -55,8 +55,9 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
       // console.log(chalk.yellow('Duration: ') + chalk.magenta(`${e.duration}ms`))
       const query = e.query
 
-;      const formattedQuery = format(query, {
-        language: 'p"postgresql"        tabWidth: 2,
+      const formattedQuery = format(query, {
+        language: 'postgresql',
+        tabWidth: 2,
         keywordCase: 'upper',
         linesBetweenQueries: 2,
         params: e.params || [],
