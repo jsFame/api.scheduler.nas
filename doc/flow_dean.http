@@ -80,13 +80,17 @@ GET {{u}}/calendars
   calendars = response.body
   deanId = client.global.get("deanId")
 
+  calendars = Array.from(calendars)
+
   client.assert(calendars.length >= 0, "Calendar is array")
 
   client.test("dean is hosting some sessions", () => {
-    for (let i = 0; i < calendars.length; i++) {
-
-
-    }
+    cs = calendars.filter((c)
+  =>
+    c.guestId != deanId
+  )
+    client.log(`dean has ${cs.length} guests`)
+    client.assert(cs.length > 0, `dean has ${cs.length} guests`)
   })
 
 %}
