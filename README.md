@@ -31,7 +31,7 @@ Built with ❤️on top of
 
 ### Functional specs
 
-Task management allows users to register, create tasks and manage them, major features are
+Scheduler allows users to register, create and manage their calendar and events
 
 - User [Host&Guest] SignUp & SignIn
 - Create Events for every day
