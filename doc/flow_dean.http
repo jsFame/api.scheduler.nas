@@ -85,10 +85,7 @@ GET {{u}}/calendars
   client.assert(calendars.length >= 0, "Calendar is array")
 
   client.test("dean is hosting some sessions", () => {
-    cs = calendars.filter((c)
-  =>
-    c.guestId != deanId
-  )
+    cs = calendars.filter((c)=>c.guestId != deanId)
     client.log(`dean has ${cs.length} guests`)
     client.assert(cs.length > 0, `dean has ${cs.length} guests`)
   })
