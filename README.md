@@ -22,7 +22,7 @@ Built with ❤️on top of
 
 - [x] Typescript
 - [x] [NestJS](https://github.com/nestjs/nest)
-- [x] [Prisma](https://www.prisma.io)
+- [x] [Prisma-ORM](https://www.prisma.io)
 - [x] [Passport.js](https://docs.nestjs.com/recipes/passport)
 - [x] [ReST- API Architecture Style](https://en.wikipedia.org/wiki/Representational_state_transfer)
 - [x] [PostgreSQL](https://www.postgresql.org)
