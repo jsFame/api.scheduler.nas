@@ -31,7 +31,7 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "MODE=test jest --config ./test/jest-e2e.json",
     "test:e2e:watch": "MODE=test jest --watch --no-cache --config ./test/jest-e2e.json",
-    "doc": "npx compodoc -p tsconfig.doc.json -d doc"
+    "doc": "npx compodoc -p tsconfig.doc.json -d compodoc"
   },
   "dependencies": {
     "@nestjs/cache-manager": "^2.0.1",
