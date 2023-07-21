@@ -41,7 +41,7 @@ Scheduler allows users to register, create and manage their calendar and events
 
 ### Technical methodologies followed
 
-- Modular architecture: Tasks & Auth handled in separate modules, separating concerns.
+- Modular architecture: Business Logic & Auth handled in separate modules, separating concerns.
 - HTTP requests are handled by Controllers
 - <s> API documentation using nest/swagger module </s>
 - Business logic is implemented in Services
