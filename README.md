@@ -49,7 +49,7 @@ Scheduler allows users to register, create and manage their calendar and events
 - Validation using NestJS Pipes
 - Data Transfer Object(DTO) pattern for transferring data between layers
 - Configuration management using .env files for development, test & prod configs
-- Authentication / Authorization, Task ownership by users
+- Authentication / Authorization, Event ownership by users
 - PassportJS, JWT tokens, Password hashing, salts
 - Unit tests using Jest
 - Supertest for E2E testing
