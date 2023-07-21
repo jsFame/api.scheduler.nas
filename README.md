@@ -1,5 +1,10 @@
 # api.scheduler.nas
 
+[![E2E](https://github.com/jsFame/api.scheduler.nas/actions/workflows/e2e.yaml/badge.svg)](https://github.com/jsFame/api.scheduler.nas/actions/workflows/e2e.yaml)
+[![Technical Documentation](https://github.com/jsFame/api.scheduler.nas/actions/workflows/gitpages.yaml/badge.svg)](https://github.com/jsFame/api.scheduler.nas/actions/workflows/gitpages.yaml)
+[![Docker Builds](https://github.com/jsFame/api.scheduler.nas/actions/workflows/docker.yaml/badge.svg)](https://github.com/jsFame/api.scheduler.nas/actions/workflows/docker.yaml)
+[![Cross-Node18,19,20](https://github.com/jsFame/api.scheduler.nas/actions/workflows/cross.yaml/badge.svg)](https://github.com/jsFame/api.scheduler.nas/actions/workflows/cross.yaml)
+
 # Inspiration
 
 During my college years, I found that teachers, students & myself would often have to
