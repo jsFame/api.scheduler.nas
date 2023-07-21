@@ -1,6 +1,6 @@
 alter table "calendars"
     add constraint if not exists schedule_not_in_past
-        check (date>now());
+        check (date>=now()::date);
 
 alter table "timeslots"
     add constraint "startTime less than endTime"
