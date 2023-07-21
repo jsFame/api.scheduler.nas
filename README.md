@@ -7,6 +7,8 @@ stand outside the dean's office for long hours. I found this very disturbing as 
 Science Engineering Student. I saw the potential of a software scheduler that would make
 everyone's life easy.
 
+From the technical side, my main source of motivation was the simplicity and elegance of https://www.when2meet.com
+
 ## Description
 
 Scheduler RESTFul API Server built using NestJS, Prisma, REST and PostgreSQL.
