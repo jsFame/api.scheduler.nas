@@ -17,25 +17,44 @@ export class CalendarService {
   }
 
   async findAll(userId: number) {
-    return this.prisma.calendar.findMany({
+    const hostedSlots = await this.prisma.timeSlot.findMany({
+      select: {
+        id: true,
+      },
+      where: {
+        event: {
+          hostId: userId,
+        },
+      },
+    })
+
+    const slots = hostedSlots.map((val) => val.id)
+
+    const c2 = await this.prisma.calendar.findMany({
+      where: {
+        timeSlotId: {
+          in: slots,
+        },
+      },
+    })
+
+    console.log({ c2 })
+    const c1 = await this.prisma.calendar.findMany({
       where: {
         OR: [
-          /*   {
-            guestId: userId,
-          },*/
           {
-            timeslot: {
-              event: {
-                hostId: userId,
-              },
+            guestId: userId,
+          },
+          {
+            timeSlotId: {
+              in: slots,
             },
           },
         ],
       },
-      include: {
-        timeslot: true,
-      },
     })
+
+    return c1
   }
 
   /*  findOne(id: number) {
