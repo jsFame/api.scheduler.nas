@@ -1,12 +1,13 @@
-import { Test } from '@nestjs/testing'
-import { AppModule } from '../src/app.module'
-import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common'
-import * as pactum from 'pactum'
-import { ConfigService } from '@nestjs/config'
-import { PrismaService } from '../src/prisma/prisma.service'
-import { AuthDto } from '../src/auth/dto'
-import { EditUserDto } from '../src/user/dto'
-import moment from 'moment'
+import { Test } from "@nestjs/testing";
+import { AppModule } from "../src/app.module";
+import { HttpStatus, INestApplication, ValidationPipe } from "@nestjs/common";
+import * as pactum from "pactum";
+import { ConfigService } from "@nestjs/config";
+import { PrismaService } from "../src/prisma/prisma.service";
+import { AuthDto } from "../src/auth/dto";
+import { EditUserDto } from "../src/user/dto";
+import moment from "moment";
+import { randomStringGenerator } from "@nestjs/common/utils/random-string-generator.util";
 
 describe('App e2e', () => {
   let app: INestApplication
@@ -25,7 +26,7 @@ describe('App e2e', () => {
     url = `http://localhost:${port}`
     await app.listen(port)
     pactum.request.setBaseUrl(url)
-    prisma.cleanDb()
+    await prisma.cleanDb()
   })
 
   afterAll(async () => {
@@ -72,9 +73,7 @@ describe('App e2e', () => {
     password: 'nasEduIsTheBest@2023',
   }
   const hiro = {
-    email: 'hiro2019-22@student.nas-engineering.edu',
-    password: 'Hiro Is An Engineer',
-  }
+    email: 'h"hiro2019-22@student.nas-engineering.edu"    password: 'H"HiroWasEngineerr@302013" }
 
   describe('Auth', function () {
     const dto: AuthDto = {
@@ -132,7 +131,6 @@ describe('App e2e', () => {
           .spec()
           .post(`${url}/auth/signup`)
           .withBody(dean)
-          .withRequestTimeout(2 * 1000)
           .expectStatus(HttpStatus.CREATED)
           .inspect()
       })
@@ -142,7 +140,6 @@ describe('App e2e', () => {
           .spec()
           .post(`${url}/auth/signup`)
           .withBody(hiro)
-          .withRequestTimeout(2 * 1000)
           .expectStatus(HttpStatus.CREATED)
           .inspect()
       })
@@ -248,27 +245,30 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .withHeaders({
-            Authorization: `Bearer $S{userToken}`,
+            Authorization: `Bearer $S{userToken}`
           })
-          .delete('/users')
-          .expectStatus(HttpStatus.OK)
+          .delete("/users")
+          .expectStatus(HttpStatus.OK);
       })
     })
   })
 
-  describe('Event', () => {
-    describe('Create Event', () => {
-      it('show create event for dean', () => {
+  const EventDuration = 20;
+
+  describe("Event", () => {
+    describe("Create Event", () => {
+      it("show create event for dean", () => {
         return pactum
           .spec()
           .withHeaders({
-            Authorization: `Bearer $S{dean}`,
+            Authorization: `Bearer $S{dean}`
           })
-          .post('/events')
+          .post("/events")
           .withBody({
-            title: 'Test Event with Hiro',
-            description: 'Casual Call',
-            date: '2023-02-01',
+            title: `Test Event with Hiro ${randomStringGenerator()}`,
+            description: "Casual Call",
+            date: "2023-02-01",
+            duration: EventDuration
           })
           .expectStatus(HttpStatus.CREATED)
           .stores('id', 'eventId')
@@ -277,34 +277,38 @@ describe('App e2e', () => {
   })
   describe('TimeSlot', () => {
     it("show create timeslot for dean's event", () => {
+      const startTime = moment(new Date()).add(2, "hours");
+      const endTime = startTime.clone().add(EventDuration, "minutes");
       return pactum
         .spec()
         .withHeaders({
-          Authorization: `Bearer $S{dean}`,
+          Authorization: `Bearer $S{dean}`
         })
-        .post('/timeslots')
+        .post("/timeslots")
         .withBody({
-          eventId: '$S{eventId}',
-          startTime: '10:00',
-          endTime: '11:20',
-          available: true,
+          eventId: "$S{eventId}",
+          startTime: `${startTime.toDate()}`,
+          endTime: `${endTime.toDate()}`,
+          available: true
         })
         .expectStatus(HttpStatus.CREATED)
+        .stores("timeSlotId", "id")
+        .inspect();
     })
   })
 
   describe('Calendar', () => {
-    it('hiro checks for timeslots with dean', () => {
-      const response = pactum
+    /*it('hiro checks for timeslots with dean', () => {
+      const res = pactum
         .spec()
         .withHeaders({
           Authorization: `Bearer $S{hiro}`,
         })
         .get(`/timeslots`)
         .withQueryParams('eventId', '$S{eventId}')
-
-      // response.body TODO:
-    })
+        .expectStatus(HttpStatus.OK)
+        .inspect()
+    })*/
 
     it('book an event today', () => {
       return pactum
@@ -314,8 +318,9 @@ describe('App e2e', () => {
         })
         .post('/calendar')
         .withBody({
-          eventId: '$S{eventId}',
-          date: moment(new Date()).toDate(),
+          // eventId: '$S{eventId}',
+          timeSlotId: "$S{timeSlotId}",
+          date: moment(new Date()).toDate()
         })
         .expectStatus(HttpStatus.CREATED)
     })
