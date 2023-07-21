@@ -1,13 +1,13 @@
-import { Test } from "@nestjs/testing";
-import { AppModule } from "../src/app.module";
-import { HttpStatus, INestApplication, ValidationPipe } from "@nestjs/common";
-import * as pactum from "pactum";
-import { ConfigService } from "@nestjs/config";
-import { PrismaService } from "../src/prisma/prisma.service";
-import { AuthDto } from "../src/auth/dto";
-import { EditUserDto } from "../src/user/dto";
-import moment from "moment";
-import { randomStringGenerator } from "@nestjs/common/utils/random-string-generator.util";
+import { Test } from '@nestjs/testing'
+import { AppModule } from '../src/app.module'
+import { HttpStatus, INestApplication, ValidationPipe } from '@nestjs/common'
+import * as pactum from 'pactum'
+import { ConfigService } from '@nestjs/config'
+import { PrismaService } from '../src/prisma/prisma.service'
+import { AuthDto } from '../src/auth/dto'
+import { EditUserDto } from '../src/user/dto'
+import moment from 'moment'
+import { randomStringGenerator } from '@nestjs/common/utils/random-string-generator.util'
 
 describe('App e2e', () => {
   let app: INestApplication
@@ -39,7 +39,7 @@ describe('App e2e', () => {
       return pactum
         .spec()
         .get(url)
-        .withRequestTimeout(1 * 1000) //cold start
+        .withRequestTimeout(1000) //cold start
         .expectStatus(HttpStatus.OK)
         .expectBodyContains({ message: 'app is up and running' })
         .inspect()
@@ -73,7 +73,9 @@ describe('App e2e', () => {
     password: 'nasEduIsTheBest@2023',
   }
   const hiro = {
-    email: 'h"hiro2019-22@student.nas-engineering.edu"    password: 'H"HiroWasEngineerr@302013" }
+    email: 'hiro2019-22@student.nas-engineering.edu',
+    password: 'HiroWasEngineerr@302013',
+  }
 
   describe('Auth', function () {
     const dto: AuthDto = {
@@ -245,55 +247,56 @@ describe('App e2e', () => {
         return pactum
           .spec()
           .withHeaders({
-            Authorization: `Bearer $S{userToken}`
+            Authorization: `Bearer $S{userToken}`,
           })
-          .delete("/users")
-          .expectStatus(HttpStatus.OK);
+          .delete('/users')
+          .expectStatus(HttpStatus.OK)
       })
     })
   })
 
-  const EventDuration = 20;
+  const EventDuration = 20
 
-  describe("Event", () => {
-    describe("Create Event", () => {
-      it("show create event for dean", () => {
+  describe('Event', () => {
+    describe('Create Event', () => {
+      it('create event for dean', () => {
         return pactum
           .spec()
           .withHeaders({
-            Authorization: `Bearer $S{dean}`
+            Authorization: `Bearer $S{dean}`,
           })
-          .post("/events")
+          .post('/events')
           .withBody({
             title: `Test Event with Hiro ${randomStringGenerator()}`,
-            description: "Casual Call",
-            date: "2023-02-01",
-            duration: EventDuration
+            description: 'Casual Call',
+            date: '2023-02-01',
+            duration: EventDuration,
           })
           .expectStatus(HttpStatus.CREATED)
-          .stores('id', 'eventId')
+          .stores('eventId', 'id')
+          .inspect()
       })
     })
   })
   describe('TimeSlot', () => {
-    it("show create timeslot for dean's event", () => {
-      const startTime = moment(new Date()).add(2, "hours");
-      const endTime = startTime.clone().add(EventDuration, "minutes");
+    it("create timeslot for dean's event", () => {
+      const startTime = moment(new Date()).add(2, 'hours')
+      const endTime = startTime.clone().add(EventDuration, 'minutes')
       return pactum
         .spec()
         .withHeaders({
-          Authorization: `Bearer $S{dean}`
+          Authorization: `Bearer $S{dean}`,
         })
-        .post("/timeslots")
+        .post('/timeslots')
         .withBody({
-          eventId: "$S{eventId}",
+          eventId: '$S{eventId}',
           startTime: `${startTime.toDate()}`,
           endTime: `${endTime.toDate()}`,
-          available: true
+          available: true,
         })
         .expectStatus(HttpStatus.CREATED)
-        .stores("timeSlotId", "id")
-        .inspect();
+        .stores('timeSlotId', 'id')
+        .inspect()
     })
   })
 
@@ -307,22 +310,23 @@ describe('App e2e', () => {
         .get(`/timeslots`)
         .withQueryParams('eventId', '$S{eventId}')
         .expectStatus(HttpStatus.OK)
-        .inspect()
+        .inspect() //FIXME add this for complete flow but now on a time crunch
     })*/
 
-    it('book an event today', () => {
+    it('book a calendar event today', () => {
       return pactum
         .spec()
         .withHeaders({
           Authorization: `Bearer $S{hiro}`,
         })
-        .post('/calendar')
+        .post('/calendars')
         .withBody({
           // eventId: '$S{eventId}',
-          timeSlotId: "$S{timeSlotId}",
-          date: moment(new Date()).toDate()
+          timeSlotId: '$S{timeSlotId}',
+          date: moment(new Date()).toDate(),
         })
         .expectStatus(HttpStatus.CREATED)
+        .inspect()
     })
 
     it('all the pending events for today-dean', () => {
@@ -331,9 +335,25 @@ describe('App e2e', () => {
         .withHeaders({
           Authorization: `Bearer $S{dean}`,
         })
-        .get('/calendar')
+        .get('/calendars')
         .expectStatus(HttpStatus.OK)
-        .expectBodyContains('eventId')
+        .expectJsonSchema({
+          $schema: 'http://json-schema.org/draft-07/schema#',
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: {
+              id: { type: 'integer' },
+              timeSlotId: { type: 'string', format: 'uuid' },
+              guestId: { type: 'integer' },
+              date: { type: 'string', format: 'date-time' },
+              createdAt: { type: 'string', format: 'date-time' },
+              updatedAt: { type: 'string', format: 'date-time' },
+            },
+            required: ['id', 'timeSlotId', 'guestId', 'date', 'createdAt', 'updatedAt'],
+            additionalProperties: false,
+          },
+        })
     })
   })
 })
