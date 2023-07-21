@@ -14,7 +14,6 @@ export class CalendarService {
 
     eventDate.add(today.getHours(), 'hours')
     eventDate.add(today.getMinutes(), 'minutes')
-    eventDate.set('')
 
     dto.date = eventDate.toDate()
     console.debug({ eventDate })
