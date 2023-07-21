@@ -9,7 +9,7 @@ everyone's life easy.
 
 ## Description
 
-Scheduler RESTFul API Server built using , TypeScript, Prisma, Graphql and PostgreSQL.
+Scheduler RESTFul API Server built using NestJS, Prisma, REST and PostgreSQL.
 
 Built with ❤️on top of
 
