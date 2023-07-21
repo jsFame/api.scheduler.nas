@@ -331,14 +331,14 @@
 <ul>
 <li>[x] Typescript</li>
 <li>[x] <a href="https://github.com/nestjs/nest">NestJS</a></li>
-<li>[x] <a href="https://www.prisma.io">Prisma</a></li>
+<li>[x] <a href="https://www.prisma.io">Prisma-ORM</a></li>
 <li>[x] <a href="https://docs.nestjs.com/recipes/passport">Passport.js</a></li>
-<li>[x] <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">Rest</a></li>
+<li>[x] <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">ReST- API Architecture Style</a></li>
 <li>[x] <a href="https://www.postgresql.org">PostgreSQL</a></li>
 </ul>
 <h2 id="about-scheduler-nas">About Scheduler.nas</h2>
 <h3 id="functional-specs">Functional specs</h3>
-<p>Task management allows users to register, create tasks and manage them, major features are</p>
+<p>Scheduler allows users to register, create and manage their calendar and events</p>
 <ul>
 <li>User [Host&amp;Guest] SignUp &amp; SignIn</li>
 <li>Create Events for every day</li>
@@ -347,7 +347,7 @@
 </ul>
 <h3 id="technical-methodologies-followed">Technical methodologies followed</h3>
 <ul>
-<li>Modular architecture: Tasks &amp; Auth handled in separate modules, separating concerns.</li>
+<li>Modular architecture: Business Logic &amp; Auth handled in separate modules, separating concerns.</li>
 <li>HTTP requests are handled by Controllers</li>
 <li><s> API documentation using nest/swagger module </s></li>
 <li>Business logic is implemented in Services</li>
@@ -355,7 +355,7 @@
 <li>Validation using NestJS Pipes</li>
 <li>Data Transfer Object(DTO) pattern for transferring data between layers</li>
 <li>Configuration management using .env files for development, test &amp; prod configs</li>
-<li>Authentication / Authorization, Task ownership by users</li>
+<li>Authentication / Authorization, Event ownership by users</li>
 <li>PassportJS, JWT tokens, Password hashing, salts</li>
 <li>Unit tests using Jest</li>
 <li>Supertest for E2E testing</li>
