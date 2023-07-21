@@ -324,14 +324,14 @@
 <h1 id="inspiration">Inspiration</h1>
 <p>During my college years, I found that teachers, students &amp; myself would often have to<br>stand outside the dean&#39;s office for long hours. I found this very disturbing as a Computer<br>Science Engineering Student. I saw the potential of a software scheduler that would make<br>everyone&#39;s life easy.</p>
 <h2 id="description">Description</h2>
-<p>Scheduler RESTFul API Server built using , TypeScript, Prisma, Graphql and PostgreSQL.</p>
+<p>Scheduler RESTFul API Server built using NestJS, Prisma, REST and PostgreSQL.</p>
 <p>Built with ❤️on top of</p>
 <ul>
 <li>[x] Typescript</li>
 <li>[x] <a href="https://github.com/nestjs/nest">NestJS</a></li>
 <li>[x] <a href="https://www.prisma.io">Prisma</a></li>
 <li>[x] <a href="https://docs.nestjs.com/recipes/passport">Passport.js</a></li>
-<li>[x] <a href="https://docs.nestjs.com/graphql/quick-start#schema-first">Graphql:Schema First</a></li>
+<li>[x] <a href="https://en.wikipedia.org/wiki/Representational_state_transfer">Rest</a></li>
 <li>[x] <a href="https://www.postgresql.org">PostgreSQL</a></li>
 </ul>
 <h2 id="about-task-management">About Task Management</h2>
@@ -339,18 +339,16 @@
 <p>Task management allows users to register, create tasks and manage them, major features are</p>
 <ul>
 <li>User SignUp &amp; SignIn</li>
-<li>Create Tasks which are visible only to the logged in users</li>
-<li>New created tasks will be in OPEN status</li>
-<li>Update task status to IN_PROGRESS or DONE</li>
-<li>Delete tasks</li>
+<li>Create Events for every day</li>
+<li>Create timeslots with availability status for events applicable for everyday</li>
 </ul>
 <h3 id="technical-methodologies-followed">Technical methodologies followed</h3>
 <ul>
 <li>Modular architecture: Tasks &amp; Auth handled in separate modules, separating concerns.</li>
 <li>HTTP requests are handled by Controllers</li>
-<li>API documentation using nest/swagger module</li>
+<li><s> API documentation using nest/swagger module </s></li>
 <li>Business logic is implemented in Services</li>
-<li>Database interactions are handled in Repository classes using TypeORM</li>
+<li>Database interactions are handled  using Prisma</li>
 <li>Validation using NestJS Pipes</li>
 <li>Data Transfer Object(DTO) pattern for transferring data between layers</li>
 <li>Configuration management using .env files for development, test &amp; prod configs</li>
@@ -359,9 +357,9 @@
 <li>Unit tests using Jest</li>
 <li>Supertest for E2E testing</li>
 </ul>
-<h3 id="technical-documentation-using-compodoc">Technical documentation using <a href="https://web3mustketeers.github.io/api.taskmon.ai/">Compodoc</a></h3>
+<h3 id="technical-documentation-using-compodoc">Technical documentation using <a href="https://jsfame.github.io/api.scheduler.nas/">Compodoc</a></h3>
 <p>As NestJS is heavily inspired by Angular, we can generate the documentation about project<br>structure modules, controllers, services etc. I have generated the docs.</p>
-<p>Find &#39;em here - <a href="https://web3mustketeers.github.io/api.taskmon.ai/">https://web3mustketeers.github.io/api.taskmon.ai/</a></p>
+<p>Find &#39;em here - <a href="https://jsfame.github.io/api.scheduler.nas/">https://jsfame.github.io/api.scheduler.nas/</a></p>
 <h2 id="installation">Installation</h2>
 <pre><code class="hljs undefined">npm install -g pnpm<br>pnpm install</code></pre><h2 id="running-the-app">Running the app</h2>
 <h3 id="prerequisite-for-running-the-app-in-any-mode-dev-test-prod">Prerequisite for running the app in any mode - dev/test/prod</h3>
