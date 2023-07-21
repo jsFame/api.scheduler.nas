@@ -18,7 +18,7 @@ POST {{u}}/events
 Content-Type: application/json
 
 {
-  "title": "New Catchup- new Dean",
+  "title": "New Catchup-{{$random.uuid}}",
   "duration": 20,
   "description": "Working Days catchup call"
 }
@@ -30,8 +30,6 @@ Content-Type: application/json
   }
   client.assert(eventID, "event created")
 %}
-
-
 
 ### Dean Gets His Host Events
 GET {{u}}/events

@@ -83,24 +83,30 @@ Content-Type: application/json
   "date": "{{today}}"
 }
 
+> {%
+
+  calendar = response.body
+  client.log(calendar)
+
+  client.test("expected res", () => {
+    client.assert(response.status == 201, "calendar created")
+  })
+  client.assert(calendar, "calendar is not empty")
+
+%}
+
 ###  Student Reviews His Calendar
 
 GET {{u}}/calendars
 
 > {%
 
-  events = response.body
-  client.log(events)
+  calendar = response.body
+  client.log(calendar)
 
-  for (i = 0; i < events.length; i++) {
-    e = events[i]
+  client.assert(calendar.length > 0, "calendar is not empty")
 
-    if (e.available && isTimeSlotAfterNow(e.startTime)) {
-      client.log("timesSlotid set " + e.id + " " + e.startTime)
-      client.global.set("timeSlotId", e.id)
-      break
-    }
-  }
+
 
 %}
 
