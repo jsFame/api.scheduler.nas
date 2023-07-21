@@ -13,6 +13,19 @@ email=superdean@gmail.com&password=Hiro123@
 ### Get Your Profile
 GET {{u}}/users/me
 
+> {%
+  res = response.body
+  deanId = res.clientId
+  deanEmail = res.email
+
+  client.assert(res.userId >= 1, "dean is a user")
+  client.assert(deanEmail === "superdean@gmail.com", "you are actually dean")
+
+  client.global.set("deanId", deanId)
+  client.global.set("deanEmail", deanEmail)
+
+%}
+
 ### Create event
 POST {{u}}/events
 Content-Type: application/json
@@ -62,4 +75,19 @@ Content-Type: application/json
 ### Dean,Reviews His Calendar. Looks up for active sessions
 
 GET {{u}}/calendars
+
+> {%
+  calendars = response.body
+  deanId = client.global.get("deanId")
+
+  client.assert(calendars.length >= 0, "Calendar is array")
+
+  client.test("dean is hosting some sessions", () => {
+    for (let i = 0; i < calendars.length; i++) {
+
+
+    }
+  })
+
+%}
 
