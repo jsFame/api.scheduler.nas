@@ -34,7 +34,7 @@ Task management allows users to register, create tasks and manage them, major fe
 
 - Modular architecture: Tasks & Auth handled in separate modules, separating concerns.
 - HTTP requests are handled by Controllers
-- API documentation using nest/swagger module or compodoc
+- <s> API documentation using nest/swagger module </s>
 - Business logic is implemented in Services
 - Database interactions are handled  using Prisma
 - Validation using NestJS Pipes
@@ -45,12 +45,12 @@ Task management allows users to register, create tasks and manage them, major fe
 - Unit tests using Jest
 - Supertest for E2E testing
 
-### Technical documentation using [Compodoc](https://web3mustketeers.github.io/api.taskmon.ai/)
+### Technical documentation using [Compodoc](https://jsfame.github.io/api.scheduler.nas/)
 
 As NestJS is heavily inspired by Angular, we can generate the documentation about project
 structure modules, controllers, services etc. I have generated the docs.
 
-Find 'em here - https://web3mustketeers.github.io/api.taskmon.ai/
+Find 'em here - https://jsfame.github.io/api.scheduler.nas/
 
 ## Installation
 
