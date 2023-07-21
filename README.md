@@ -17,7 +17,7 @@ Built with ❤️on top of
 - [x] [NestJS](https://github.com/nestjs/nest)
 - [x] [Prisma](https://www.prisma.io)
 - [x] [Passport.js](https://docs.nestjs.com/recipes/passport)
-- [x] [Graphql:Schema First](https://docs.nestjs.com/graphql/quick-start#schema-first)
+- [x] [Rest](https://en.wikipedia.org/wiki/Representational_state_transfer)
 - [x] [PostgreSQL](https://www.postgresql.org)
 
 ## About Task Management
@@ -27,18 +27,16 @@ Built with ❤️on top of
 Task management allows users to register, create tasks and manage them, major features are
 
 - User SignUp & SignIn
-- Create Tasks which are visible only to the logged in users
-- New created tasks will be in OPEN status
-- Update task status to IN_PROGRESS or DONE
-- Delete tasks
+- Create Events for every day
+- Create timeslots with availability status for events applicable for everyday
 
 ### Technical methodologies followed
 
 - Modular architecture: Tasks & Auth handled in separate modules, separating concerns.
 - HTTP requests are handled by Controllers
-- API documentation using nest/swagger module
+- API documentation using nest/swagger module or compodoc
 - Business logic is implemented in Services
-- Database interactions are handled in Repository classes using TypeORM
+- Database interactions are handled  using Prisma
 - Validation using NestJS Pipes
 - Data Transfer Object(DTO) pattern for transferring data between layers
 - Configuration management using .env files for development, test & prod configs
