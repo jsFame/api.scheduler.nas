@@ -85,6 +85,8 @@ Content-Type: application/json
 
 > {%
 
+  client.log(client.global.get("today"))
+
   calendar = response.body
   client.log(calendar)
 
@@ -103,7 +105,6 @@ GET {{u}}/calendars
 
   calendar = response.body
   client.log(calendar)
-
   client.assert(calendar.length > 0, "calendar is not empty")
 
 

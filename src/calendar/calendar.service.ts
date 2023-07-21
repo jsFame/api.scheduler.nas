@@ -8,7 +8,14 @@ export class CalendarService {
   constructor(private readonly prisma: PrismaService) {}
 
   create(dto: CreateCalendarDto) {
-    const eventDate = moment(dto.date, 'YYYY-MM-DD')
+    const today = new Date()
+
+    const eventDate = moment(dto.date, `YYYY-MM-DD`) //TODO: use moment.utc if necessary
+
+    eventDate.add(today.getHours(), 'hours')
+    eventDate.add(today.getMinutes(), 'minutes')
+    eventDate.set('')
+
     dto.date = eventDate.toDate()
     console.debug({ eventDate })
     return this.prisma.calendar.create({
