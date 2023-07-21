@@ -20,15 +20,17 @@ Built with ❤️on top of
 - [x] [Rest](https://en.wikipedia.org/wiki/Representational_state_transfer)
 - [x] [PostgreSQL](https://www.postgresql.org)
 
-## About Task Management
+## About Scheduler.nas
 
 ### Functional specs
 
 Task management allows users to register, create tasks and manage them, major features are
 
-- User SignUp & SignIn
+- User [Host&Guest] SignUp & SignIn
 - Create Events for every day
 - Create timeslots with availability status for events applicable for everyday
+- Schedule meetings/sessions based on available timeslots provided by the host
+
 
 ### Technical methodologies followed
 
