@@ -60,15 +60,19 @@ GET {{u}}/timeslots?eventId={{deanEventId}}
   events = response.body
   client.log(events)
 
+  flagSet = false
+
   for (i = 0; i < events.length; i++) {
     e = events[i]
 
     if (e.available && isTimeSlotAfterNow(e.startTime)) {
       client.log("timesSlotid set " + e.id + " " + e.startTime)
       client.global.set("timeSlotId", e.id)
+      flagSet=true
       break
     }
   }
+  client.assert(flagSet, "got timeslots")
 
 %}
 
