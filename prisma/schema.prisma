@@ -50,8 +50,8 @@ model Event {
 model TimeSlot {
   id        String   @id @default(uuid())
   eventId   String
-  startTime DateTime @db.Timetz() // FIXME:@db.Timetz()
-  endTime   DateTime @db.Timetz()
+  startTime DateTime @db.Time() // FIXME:@db.Timetz()
+  endTime   DateTime @db.Time()
   available Boolean  @default(true)
 
   createdAt DateTime   @default(now())
