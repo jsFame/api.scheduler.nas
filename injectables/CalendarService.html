@@ -516,9 +516,23 @@ export class CalendarService {
           },
         ],
       },
+      include: {
+        timeslot: true,
+      },
     })
 
-    return c1
+    const today &#x3D; moment()
+
+    const filtered_events &#x3D; c1.filter((c) &#x3D;&gt; {
+      const due &#x3D; moment(new Date())
+      const tt &#x3D; c.timeslot
+      due.set(&#x27;minutes&#x27;, tt.startTime.getMinutes())
+      due.set(&#x27;hours&#x27;, tt.startTime.getHours())
+
+      return due &gt; today
+    })
+
+    return filtered_events
   }
 
   /*  findOne(id: number) {
