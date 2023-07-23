@@ -24,6 +24,8 @@ const logEvents: Prisma.LogDefinition[] = [
   },
 ]
 
+let DB_CONNECTED = false
+
 @Injectable()
 export class PrismaService extends PrismaClient implements OnModuleInit {
   // FIXME doesn't work for e2e OnModuleDestroy{
@@ -68,8 +70,13 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
     })
   }
   async onModuleInit() {
+    if (DB_CONNECTED) return
+
     console.info(new Date(), 'connecting to the database')
     await this.$connect()
+    await this.$executeRawUnsafe("SET timezone = 'Asia/Kolkata'")
+
+    DB_CONNECTED = true
   }
 
   async enableShutdownHooks(app: INestApplication) {
