@@ -23,6 +23,11 @@ export class CalendarController {
     return this.calendarService.findAll(userId)
   }
 
+  @Get('today')
+  findAllToday(@GetUser('userId') userId: number) {
+    return this.calendarService.findAll(userId)
+  }
+
   /* @Get(':id')
   findOne(@Param('id') id: string) {
     return this.calendarService.findOne(+id)

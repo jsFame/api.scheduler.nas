@@ -22,7 +22,9 @@ export class CalendarService {
     })
   }
 
-  async findAll(userId: number) {
+  async findAll(userId: number, isToday?: boolean) {
+    const today = moment()
+
     const hostedSlots = await this.prisma.timeSlot.findMany({
       select: {
         id: true,
@@ -45,6 +47,8 @@ export class CalendarService {
     })
 
     console.log({ c2 })
+    const onlyTodayEvents = isToday ? today.clone().add(1, 'day').toDate() : undefined
+
     const c1 = await this.prisma.calendar.findMany({
       where: {
         OR: [
@@ -58,17 +62,22 @@ export class CalendarService {
           },
           {
             date: {
-              gte: new Date(), //FIXME should support fetch by dates
+              gte: today.toDate(), //FIXME should support fetch by dates
+              lt: onlyTodayEvents, // Filter events with date < start of tomorrow
             },
           },
         ],
       },
       include: {
-        timeslot: true,
+        timeslot: {
+          select: {
+            startTime: true,
+            endTime: true,
+            eventId: true,
+          },
+        },
       },
     })
-
-    const today = moment()
 
     const filtered_events = c1.filter((c) => {
       const due = moment(new Date())

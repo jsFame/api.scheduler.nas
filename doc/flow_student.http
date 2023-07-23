@@ -99,7 +99,7 @@ Content-Type: application/json
 
 ###  Student Reviews His Calendar
 
-GET {{u}}/calendars
+GET {{u}}/calendars/today
 
 > {%
 
