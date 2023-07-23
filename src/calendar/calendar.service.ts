@@ -63,9 +63,23 @@ export class CalendarService {
           },
         ],
       },
+      include: {
+        timeslot: true,
+      },
     })
 
-    return c1
+    const today = moment()
+
+    const filtered_events = c1.filter((c) => {
+      const due = moment(new Date())
+      const tt = c.timeslot
+      due.set('minutes', tt.startTime.getMinutes())
+      due.set('hours', tt.startTime.getHours())
+
+      return due > today
+    })
+
+    return filtered_events
   }
 
   /*  findOne(id: number) {
