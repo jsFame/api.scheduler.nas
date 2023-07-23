@@ -56,6 +56,11 @@ export class CalendarService {
               in: slots,
             },
           },
+          {
+            date: {
+              gte: new Date(), //FIXME should support fetch by dates
+            },
+          },
         ],
       },
     })
