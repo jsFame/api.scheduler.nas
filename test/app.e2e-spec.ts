@@ -272,6 +272,7 @@ describe('App e2e', () => {
             date: '2023-02-01',
             duration: EventDuration,
           })
+          .expectBodyContains('id')
           .expectStatus(HttpStatus.CREATED)
           .stores('eventId', 'id')
           .inspect()
@@ -295,6 +296,7 @@ describe('App e2e', () => {
           available: true,
         })
         .expectStatus(HttpStatus.CREATED)
+        .expectBodyContains('id')
         .stores('timeSlotId', 'id')
         .inspect()
     })
