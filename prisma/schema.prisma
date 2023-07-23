@@ -20,7 +20,7 @@ model User {
   Calendar  Calendar[]
 
   createdAt DateTime @default(now()) @db.Timestamptz()
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @db.Timestamptz()
 
   @@map("users")
 }
@@ -41,7 +41,7 @@ model Event {
   timeslots TimeSlot[]
 
   createdAt DateTime @default(now()) @db.Timestamptz()
-  updatedAt DateTime @updatedAt
+  updatedAt DateTime @updatedAt @db.Timestamptz()
 
   @@unique([hostId, title, duration])
   @@map("events")
@@ -55,7 +55,7 @@ model TimeSlot {
   available Boolean  @default(true)
 
   createdAt DateTime   @default(now()) @db.Timestamptz()
-  updatedAt DateTime   @updatedAt
+  updatedAt DateTime   @updatedAt @db.Timestamptz()
   Calendar  Calendar[]
 
   event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
