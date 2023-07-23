@@ -38,7 +38,7 @@ GET {{u}}/events/available
 
 ### Get Slots for the event
 
-GET {{u}}/timeslots?eventId={{deanEventId}}
+GET {{u}}/timeslots?eventId={{deanEventId}}&available=true
 
 > {%
 

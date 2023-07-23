@@ -3,6 +3,9 @@ import { CreateTimeslotDto } from './dto/create-timeslot.dto'
 import { PrismaService } from '../prisma/prisma.service'
 import moment from 'moment'
 
+interface filterBy {
+  available?: boolean
+}
 @Injectable()
 export class TimeslotService {
   constructor(private readonly prisma: PrismaService) {}
@@ -24,10 +27,11 @@ export class TimeslotService {
     })
   }
 
-  findAll(eventId?: string) {
+  findAll(eventId?: string, whereBy?: filterBy) {
     return this.prisma.timeSlot.findMany({
       where: {
         eventId,
+        ...whereBy,
       },
     })
   }
