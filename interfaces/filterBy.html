@@ -83,7 +83,7 @@
                                     <a href="../classes/EditUserDto.html" >EditUserDto</a>
                                 </li>
                                 <li class="link">
-                                    <a href="../classes/Event.html"  class="active" >Event</a>
+                                    <a href="../classes/Event.html" >Event</a>
                                 </li>
                                 <li class="link">
                                     <a href="../classes/JwtGuard.html" >JwtGuard</a>
@@ -157,7 +157,7 @@
                                 id="xs-interfaces-links"
                             >
                                 <li class="link">
-                                    <a href="../interfaces/filterBy.html" >filterBy</a>
+                                    <a href="../interfaces/filterBy.html"  class="active" >filterBy</a>
                                 </li>
                         </ul>
                     </li>
@@ -251,7 +251,7 @@
                                            <a href="../classes/EditUserDto.html" >EditUserDto</a>
                                        </li>
                                        <li class="link">
-                                           <a href="../classes/Event.html"  class="active" >Event</a>
+                                           <a href="../classes/Event.html" >Event</a>
                                        </li>
                                        <li class="link">
                                            <a href="../classes/JwtGuard.html" >JwtGuard</a>
@@ -325,7 +325,7 @@
                                        id="interfaces-links"
                    >
                                        <li class="link">
-                                           <a href="../interfaces/filterBy.html" >filterBy</a>
+                                           <a href="../interfaces/filterBy.html"  class="active" >filterBy</a>
                                        </li>
                                </ul>
                            </li>
@@ -350,7 +350,7 @@
                    
                    </nav>
                </div>
-               <div class="content class">
+               <div class="content interface">
                    <div class="content-data">
 
 
@@ -358,9 +358,10 @@
 
 
 
+
 <ol class="breadcrumb">
-  <li>Classes</li>
-  <li>Event</li>
+  <li>Interfaces</li>
+  <li>filterBy</li>
 </ol>
 
 <ul class="nav nav-tabs" role="tablist">
@@ -378,20 +379,97 @@
             <h3>File</h3>
         </p>
         <p class="comment">
-            <code>src/event/entities/event.entity.ts</code>
+            <code>src/timeslot/timeslot.service.ts</code>
         </p>
 
 
 
 
 
+            <section>
+                <h3 id="inputs">Properties</h3>
+                    <table class="table table-sm table-bordered">
+                        <tbody>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <b>available</b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-4">
+                                        <code>available:     <code>boolean</code>
+</bcode>
+                                    </td>
+                                </tr>
+
+
+                                    <tr>
+                                        <td class="col-md-4">
+                                            <i>Type : </i>    <code>boolean</code>
+
+                                        </td>
+                                    </tr>
+
+
+
+                        </tbody>
+                    </table>
+            </section>
     </div>
     <div class="tab-pane fade tab-source-code" id="source">
-        <pre><code class="hljs javascript">export class Event {}
+        <pre><code class="hljs javascript">import { Injectable } from &#x27;@nestjs/common&#x27;
+import { CreateTimeslotDto } from &#x27;./dto/create-timeslot.dto&#x27;
+import { PrismaService } from &#x27;../prisma/prisma.service&#x27;
+import moment from &#x27;moment&#x27;
+
+interface filterBy {
+  available?: boolean
+}
+@Injectable()
+export class TimeslotService {
+  constructor(private readonly prisma: PrismaService) {}
+  async create(dto: CreateTimeslotDto) {
+    const event &#x3D; await this.prisma.event.findUniqueOrThrow({
+      where: {
+        id: dto.eventId,
+      },
+    })
+
+    const startTime &#x3D; moment(dto.startTime, &#x27;HH:mm&#x27;)
+    const endTime &#x3D; startTime.clone().add(event.duration, &#x27;minutes&#x27;)
+    dto.startTime &#x3D; startTime.toDate()
+    return this.prisma.timeSlot.create({
+      data: {
+        ...dto,
+        endTime: endTime.toDate(),
+      },
+    })
+  }
+
+  findAll(eventId?: string, whereBy?: filterBy) {
+    return this.prisma.timeSlot.findMany({
+      where: {
+        eventId,
+        ...whereBy,
+      },
+    })
+  }
+
+  /*  findOne(id: number) {
+    return &#x60;This action returns a #${id} timeslot&#x60;
+  }
+
+  update(id: number, updateTimeslotDto: UpdateTimeslotDto) {
+    return &#x60;This action updates a #${id} timeslot&#x60;
+  }
+
+  remove(id: number) {
+    return &#x60;This action removes a #${id} timeslot&#x60;
+  }*/
+}
 </code></pre>
     </div>
 </div>
-
 
 
 
