@@ -11,10 +11,6 @@ Content-Type: application/x-www-form-urlencoded
 email=tadashiStudent@gmail.com&password=Hiro*2412412###@##P
 
 
-### Gets all your events
-
-GET {{u}}/events
-
 ### Gets events available "others"
 
 GET {{u}}/events/available

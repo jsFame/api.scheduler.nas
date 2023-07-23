@@ -14,9 +14,9 @@ export class TimeslotController {
   }
 
   @Get()
-  findAll(@Query() queryPs: { eventId: string; available?: boolean }) {
+  findAll(@Query() queryPs: { eventId: string; available?: boolean | string }) {
     return this.timeslotService.findAll(queryPs.eventId, {
-      available: queryPs.available,
+      available: queryPs.available == true || queryPs.available == 'true',
     })
   }
 
