@@ -11,8 +11,8 @@ CREATE TABLE "events" (
     "description" STRING,
     "hostId" INT4 NOT NULL,
     "duration" INT4 NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL,
 
     CONSTRAINT "events_pkey" PRIMARY KEY ("id")
 );
@@ -24,8 +24,8 @@ CREATE TABLE "timeslots" (
     "startTime" TIME NOT NULL,
     "endTime" TIME NOT NULL,
     "available" BOOL NOT NULL DEFAULT true,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL,
 
     CONSTRAINT "timeslots_pkey" PRIMARY KEY ("id")
 );
@@ -36,8 +36,8 @@ CREATE TABLE "calendars" (
     "timeSlotId" STRING NOT NULL,
     "guestId" INT4 NOT NULL,
     "date" DATE NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL,
 
     CONSTRAINT "calendars_pkey" PRIMARY KEY ("id")
 );
@@ -49,8 +49,8 @@ CREATE TABLE "_prisma_new_users" (
     "hash" STRING NOT NULL,
     "firstName" STRING,
     "lastName" STRING,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMPTZ NOT NULL,
 
     CONSTRAINT "users_pkey" PRIMARY KEY ("id")
 );
