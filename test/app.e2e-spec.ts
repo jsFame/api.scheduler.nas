@@ -42,7 +42,6 @@ describe('App e2e', () => {
         .withRequestTimeout(1000) //cold start
         .expectStatus(HttpStatus.OK)
         .expectBodyContains({ message: 'app is up and running' })
-        .inspect()
     })
 
     it('should return health status', () => {
@@ -91,7 +90,6 @@ describe('App e2e', () => {
           password: dto.password,
         })
         .expectStatus(400)
-        .inspect()
     })
 
     it('should throw if password empty', () => {
@@ -102,7 +100,6 @@ describe('App e2e', () => {
           email: dto.email,
         })
         .expectStatus(400)
-        .inspect()
     })
 
     it('should throw if not strong  password', () => {
@@ -114,7 +111,6 @@ describe('App e2e', () => {
           password: '123',
         })
         .expectStatus(400)
-        .inspect()
     })
 
     describe('Sign up', () => {
@@ -125,7 +121,6 @@ describe('App e2e', () => {
           .withBody(dto)
           .withRequestTimeout(2 * 1000)
           .expectStatus(HttpStatus.CREATED)
-          .inspect()
       })
 
       it('should signup the dean', () => {
@@ -134,7 +129,6 @@ describe('App e2e', () => {
           .post(`${url}/auth/signup`)
           .withBody(dean)
           .expectStatus(HttpStatus.CREATED)
-          .inspect()
       })
 
       it('should signup hiro', () => {
@@ -143,7 +137,6 @@ describe('App e2e', () => {
           .post(`${url}/auth/signup`)
           .withBody(hiro)
           .expectStatus(HttpStatus.CREATED)
-          .inspect()
       })
     })
     describe('Sign in', () => {
@@ -155,7 +148,6 @@ describe('App e2e', () => {
             email: dto.email,
           })
           .expectStatus(400)
-          .inspect()
       })
       it('should throw if email empty', () => {
         return pactum
@@ -165,7 +157,6 @@ describe('App e2e', () => {
             password: dto.password,
           })
           .expectStatus(400)
-          .inspect()
       })
       it('should signin', () => {
         return pactum
@@ -216,14 +207,9 @@ describe('App e2e', () => {
       })
 
       it('should get current user with cookies', () => {
-        return (
-          pactum
-            .spec()
-            .get('/users/me')
-            // .withCookies("token",`$S{userToken}`) //FIXME
-            // .expectStatus(HttpStatus.OK)
-            .inspect()
-        )
+        return pactum.spec().get('/users/me')
+        // .withCookies("token",`$S{userToken}`) //FIXME
+        // .expectStatus(HttpStatus.OK)
       })
     })
     describe('Edit User', () => {
@@ -275,7 +261,6 @@ describe('App e2e', () => {
           .expectBodyContains('id')
           .expectStatus(HttpStatus.CREATED)
           .stores('eventId', 'id')
-          .inspect()
       })
     })
   })
@@ -291,8 +276,8 @@ describe('App e2e', () => {
         .post('/timeslots')
         .withBody({
           eventId: '$S{eventId}',
-          startTime: `${startTime.toDate()}`,
-          endTime: `${endTime.toDate()}`,
+          startTime: startTime.toDate(),
+          endTime: endTime.toDate(),
           available: true,
         })
         .expectStatus(HttpStatus.CREATED)
@@ -312,7 +297,7 @@ describe('App e2e', () => {
         .get(`/timeslots`)
         .withQueryParams('eventId', '$S{eventId}')
         .expectStatus(HttpStatus.OK)
-        .inspect() //FIXME add this for complete flow but now on a time crunch
+         //FIXME add this for complete flow but now on a time crunch
     })*/
 
     it('book a calendar event today', () => {
@@ -323,12 +308,10 @@ describe('App e2e', () => {
         })
         .post('/calendars')
         .withBody({
-          // eventId: '$S{eventId}',
           timeSlotId: '$S{timeSlotId}',
           date: moment(new Date()).toDate(),
         })
         .expectStatus(HttpStatus.CREATED)
-        .inspect()
     })
 
     it('all the pending events for today-dean', () => {
