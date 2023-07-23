@@ -31,7 +31,7 @@ export class TimeslotService {
     return this.prisma.timeSlot.findMany({
       where: {
         eventId,
-        ...whereBy,
+        available: whereBy.available,
       },
     })
   }
