@@ -32,7 +32,7 @@ GET {{u}}/events/available
   client.global.set("today", todayInISO)
 %}
 
-### Get Slots for the event
+### Get TimeSlots for the event
 
 GET {{u}}/timeslots?eventId={{deanEventId}}&available=true
 
