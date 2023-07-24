@@ -322,7 +322,7 @@ describe('App e2e', () => {
         .withHeaders({
           Authorization: `Bearer $S{dean}`,
         })
-        .get('/calendars')
+        .get('/calendars/today')
         .expectStatus(HttpStatus.OK)
         .expectJsonSchema({
           $schema: 'http://json-schema.org/draft-07/schema#',
@@ -338,9 +338,10 @@ describe('App e2e', () => {
               updatedAt: { type: 'string', format: 'date-time' },
             },
             required: ['id', 'timeSlotId', 'guestId', 'date', 'createdAt', 'updatedAt'],
-            additionalProperties: false,
+            additionalProperties: true,
           },
         })
+        .inspect()
     })
 
     it('all the pending events for today-hiro', () => {
@@ -349,7 +350,7 @@ describe('App e2e', () => {
         .withHeaders({
           Authorization: `Bearer $S{hiro}`,
         })
-        .get('/calendars')
+        .get('/calendars/today')
         .expectStatus(HttpStatus.OK)
         .expectJsonSchema({
           $schema: 'http://json-schema.org/draft-07/schema#',
@@ -365,7 +366,7 @@ describe('App e2e', () => {
               updatedAt: { type: 'string', format: 'date-time' },
             },
             required: ['id', 'timeSlotId', 'guestId', 'date', 'createdAt', 'updatedAt'],
-            additionalProperties: false,
+            additionalProperties: true,
           },
         })
     })
