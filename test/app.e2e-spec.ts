@@ -309,9 +309,11 @@ describe('App e2e', () => {
         .post('/calendars')
         .withBody({
           timeSlotId: '$S{timeSlotId}',
-          date: moment(new Date()).toDate(),
+          eventId: '$S{eventId}',
+          date: new Date(),
         })
         .expectStatus(HttpStatus.CREATED)
+        .inspect()
     })
 
     it('all the pending events for today-dean', () => {
